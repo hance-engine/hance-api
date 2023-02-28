@@ -43,7 +43,7 @@ def process_file(model_file_path : str, input_file_path : str, output_file_path 
             input_file_path = 'temp.wav'
             in_file_info = sf.SoundFile(input_file_path)
             created_temp_file = True
-
+    
     processor = hance_engine.create_processor(model_file_path, in_file_info.channels, in_file_info.samplerate)
     
     output_file = sf.SoundFile(output_file_path, mode='w', samplerate=in_file_info.samplerate, channels=in_file_info.channels,

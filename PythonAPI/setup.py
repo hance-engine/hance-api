@@ -2,9 +2,22 @@ from struct import calcsize
 from setuptools import setup
 import platform
 import os
+import shutil
 from sys import version_info, executable, argv
 
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
+
+if not os.path.exists(os.path.join("hance", "bin")):
+    #We run from the source folder in the github repo
+    #We need to copy the Bin and Models folder to the hance folder
+    
+    base_path = os.path.abspath(os.path.dirname(__file__))
+    up_one_folder = os.path.split(base_path)[0]
+    #up_two_folders = os.path.split(up_one_folder)[0]
+    
+    shutil.copytree(os.path.join(up_one_folder, "Bin"), os.path.join(base_path, "hance", "bin"))
+    shutil.copytree(os.path.join(up_one_folder, "Models"), os.path.join(base_path, "hance", "models"))
+    
 
 def read(filename):
     try:
@@ -67,20 +80,22 @@ def get_package_data_list():
         system_name = 'Windows64bit'
     elif '--plat-name=win32' in argv:
         system_name = 'Windows32bit'
+        
+    bin_path = "bin"
+    files_to_include.append("models/*")
     
     if system_name == "Windows32bit":
-        files_to_include.append("bin/Windows_x86/HanceEngine.dll")
-    elif system_name == "Windows64bit":    
-        files_to_include.append("bin/Windows_x64/HanceEngine.dll")
+        files_to_include.append(os.path.join(bin_path, "Windows", "HanceEngine.dll"))
+    elif system_name == "Windows64bit":
+        files_to_include.append(os.path.join(bin_path, "Windows_x64", "HanceEngine.dll")) 
     elif system_name == "Darwin":
-        files_to_include.append("bin/macOS/HanceEngine.dylib")    
+        files_to_include.append(os.path.join(bin_path, "macOS", "HanceEngine.dylib"))
     elif system_name == "Linux":
-        files_to_include.append("bin/linux/libHanceEngine.so")
+        files_to_include.append(os.path.join(bin_path, "Linux", "libHanceEngine.so")) 
+        
     
     if not files_to_include:
         raise Exception("Your system is currently not supported. The HANCE Engine can be built to run on most systems. Please contact us for a custom build.")
-    
-    files_to_include.append("models/*")
     
     return files_to_include
 

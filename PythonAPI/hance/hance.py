@@ -108,13 +108,28 @@ class HanceEngine():
         """
         Creates an audio processor from a HANCE model file.
         """
-        if not os.path.exists(model_file_path):
+        model_file_abs_path = model_file_path
+        if not os.path.exists(model_file_abs_path):
             #possible a relative path from list_models
-            model_file_path = os.path.join(MODULE_PATH, "models", model_file_path)
-            if not os.path.exists(model_file_path):
+            found_model = False
+            
+            model_file_abs_path = os.path.join(MODULE_PATH, "models", model_file_path)
+            if os.path.exists(model_file_abs_path):
+                found_model = True
+                
+            if not found_model:
+                #Check the relative path from the github repo
+                up_one_folder = os.path.split(MODULE_PATH)[0]
+                up_two_folders = os.path.split(up_one_folder)[0]
+                model_file_abs_path = os.path.join(up_two_folders, "Models", model_file_path)
+                print(model_file_abs_path)
+                if os.path.exists(model_file_abs_path):
+                    found_model = True
+                
+            if not found_model:
                 raise Exception("Model file does not exist.")
 
-        return self.Processor (self.hance_engine, model_file_path, num_of_channels, sample_rate)
+        return self.Processor (self.hance_engine, model_file_abs_path, num_of_channels, sample_rate)
 
     def find_binary(self) -> str:
         """
@@ -125,7 +140,10 @@ class HanceEngine():
         if not os.path.exists(relative_path):
             #We run from the source folder in the github repo
             #Go up one folder and find the Bin folder
-            relative_path = os.path.join(os.path.split(MODULE_PATH)[0], "Bin")
+            up_one_folder = os.path.split(MODULE_PATH)[0]
+            up_two_folders = os.path.split(up_one_folder)[0]
+            
+            relative_path = os.path.join(up_two_folders, "Bin")
             
         path_to_binary = None
         if platform.system() == "Windows":
@@ -154,7 +172,14 @@ def list_models():
     Returns a list of available models.
     """
     model_list = []
-    for fn in os.listdir(os.path.join(MODULE_PATH, "models")):
+    model_path = os.path.join(MODULE_PATH, "models")
+    if not os.path.exists(model_path):
+        #We run from the source folder in the github repo
+        up_one_folder = os.path.split(MODULE_PATH)[0]
+        up_two_folders = os.path.split(up_one_folder)[0]
+        model_path = os.path.join(up_two_folders, "Models")
+    
+    for fn in os.listdir(model_path):
         if fn.endswith(".hance"):
             model_list.append(fn)
     return model_list
