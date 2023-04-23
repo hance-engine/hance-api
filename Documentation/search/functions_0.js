@@ -8,6 +8,6 @@ var searchData=
   ['hancegetaudio_5',['hanceGetAudio',['../_hance_engine_8h.html#a514edf661743d2bb1ed6b078e5673129',1,'HanceEngine.h']]],
   ['hancegetaudiointerleaved_6',['hanceGetAudioInterleaved',['../_hance_engine_8h.html#afb4fc749ef865dc75f9678526a2fccd8',1,'HanceEngine.h']]],
   ['hancegetnumofpendingsamples_7',['hanceGetNumOfPendingSamples',['../_hance_engine_8h.html#a60d94cd376ed82bbb62068bff96998fa',1,'HanceEngine.h']]],
-  ['hancegetprocessorinfo_8',['hanceGetProcessorInfo',['../_hance_engine_8h.html#a02eca7f8eb8a75101e77f8d72f6751f2',1,'HanceEngine.h']]],
+  ['hancegetprocessorinfo_8',['hanceGetProcessorInfo',['../_hance_engine_8h.html#ae2eb49c6517178f15fe2658c33198839',1,'HanceEngine.h']]],
   ['hanceresetprocessorstate_9',['hanceResetProcessorState',['../_hance_engine_8h.html#aee928fec73868f94d8176fd0f1d886fe',1,'HanceEngine.h']]]
 ];

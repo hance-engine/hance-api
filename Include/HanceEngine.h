@@ -204,11 +204,11 @@ extern "C"
 	HANCE_API void hanceResetProcessorState (HanceProcessorHandle processorHandle);
 
 	/**
-	 * Fills a the ModelInfo structure with information about the inference model.
+	 * Fills a the HanceProcessorInfo structure with information about the HANCE processor.
 	 * @param processorHandle				Handle to the audio processor.
-	 * @param modelInfo						Pointer to a ModelInfo struct that will receive the model information.
+	 * @param processorInfo					Pointer to a HanceProcessorInfo struct that will receive the model information.
 	 */
-	HANCE_API void hanceGetProcessorInfo (HanceProcessorHandle processorHandle, HanceProcessorInfo* modelInfo);
+	HANCE_API void hanceGetProcessorInfo (HanceProcessorHandle processorHandle, HanceProcessorInfo* processorInfo);
 
 
 #ifdef __cplusplus

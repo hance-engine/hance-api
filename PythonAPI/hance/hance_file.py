@@ -6,10 +6,10 @@ import os
 try:
     import soundfile as sf
 except ImportError:
-    print("Soundfile is not installed. Please install it to run this example using the command:")
+    print("Soundfile is not installed. Please install it to process files using the command:")
     print("pip install Soundfile")
-    print("The HANCE engine can be used without Soundfile, but this example requires it.")
-    exit()
+    print("The HANCE engine can be used without Soundfile, but processing files requires it.")
+    #exit()
 
 
 def process_file(model_file_path : str, input_file_path : str, output_file_path : str, license_string : str = ""):
