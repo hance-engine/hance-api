@@ -1,5 +1,6 @@
-project(ProcessFile)
 cmake_minimum_required(VERSION 3.0)
+
+project(ProcessFile)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 add_library(hance-engine SHARED IMPORTED)
@@ -29,6 +30,7 @@ add_executable(ProcessFile ProcessFile.cpp RiffWave.h RiffWave.cpp)
 target_link_libraries(ProcessFile hance-engine)
 
 if(MSVC)
+  set(CMAKE_GENERATOR_PLATFORM x64)
   add_custom_command(TARGET ProcessFile POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${HANCE_DLL}"
       ${HANCE_TARGET_DIR})
