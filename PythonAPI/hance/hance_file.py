@@ -68,11 +68,13 @@ def process_file(model_file_path : str, input_file_path : str, output_file_path 
         num_of_samples_written += len(audio_out)
     """
 
+    
+
     #Rewritten to support older versions of pysoundfile,
     #which doesn't have the in_file_info.frames attribute.
     silent_audio = np.zeros([block_size, in_file_info.channels])
     num_of_samples = len(in_file_info) // in_file_info.channels
-    num_of_samples_written = 0
+    #num_of_samples_written = 0
 
     while num_of_samples_written < num_of_samples:
         remaining_samples = num_of_samples - num_of_samples_written

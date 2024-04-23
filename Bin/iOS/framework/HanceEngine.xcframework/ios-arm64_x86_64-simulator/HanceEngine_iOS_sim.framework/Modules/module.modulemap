@@ -1,0 +1,11 @@
+framework module HanceEngine_iOS_sim {
+  umbrella header "HanceEngine_iOS_sim.h"
+
+  export *
+  module * { export * }
+}
+
+module HanceEngine_iOS_sim.Swift {
+  header "HanceEngine_iOS_sim-Swift.h"
+  requires objc
+}

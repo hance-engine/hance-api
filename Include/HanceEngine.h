@@ -93,6 +93,11 @@ a written permission from HANCE AS.
  */
 
 #include <inttypes.h>
+#include <stdbool.h>
+
+#ifdef __EMSCRIPTEN__
+	#include <emscripten.h>
+#endif
 
 #ifdef __cplusplus
 extern "C"
@@ -102,7 +107,13 @@ extern "C"
 /** \cond */
 	#ifdef _WIN32
 		#ifdef HANCE_EXPORTS
-			#define HANCE_API __declspec(dllexport)
+			#define HANCE_API __declspec (dllexport)
+		#else
+			#define HANCE_API
+		#endif
+	#elif __EMSCRIPTEN__
+		#ifdef HANCE_EXPORTS
+			#define HANCE_API EMSCRIPTEN_KEEPALIVE
 		#else
 			#define HANCE_API
 		#endif
@@ -124,13 +135,13 @@ extern "C"
 
 		Call the \ref hanceGetProcessorInfo function to fill in the structure.
 	*/
-	struct HanceProcessorInfo {						
+	typedef struct HanceProcessorInfo {
 		double sampleRate;					/**< \brief Sample rate used when model was trained. The processor will automatically
 												 convert sample rates to match the model. */
 		int32_t numOfModelChannels;			/**< \brief The true number of channels used in the processing. The processor will
 												 automatically convert the channel format to match the model. */
 		int32_t latencyInSamples;			/**< \brief The maximum latency of the model in samples */
-	};
+	} HanceProcessorInfo;
 
 	/**
 	 * Adds a license key to the HANCE engine to remove audio watermarking on the output
@@ -147,6 +158,16 @@ extern "C"
 	 * @return								A valid processor handle on success, otherwise nullptr.
 	 */
 	HANCE_API HanceProcessorHandle hanceCreateProcessor (const char* modelFilepath, int32_t numOfChannels, double sampleRate);
+
+	/**
+	 * Creates a processor that performs stem separation, loads a set of model files and returns a handle to the processor instance if successful.
+	 * @param numOfModels					The number of model files to load
+	 * @param modelFilepaths				Pointer to an array of pointers to zero terminated strings containing the file paths of the model files to load.
+	 * @param numOfChannels					The number of channels in the audio to process.
+	 * @param sampleRate					The sample rate of the audio to process.
+	 * @return								A valid processor handle on success, otherwise nullptr.
+	 */
+	HANCE_API HanceProcessorHandle hanceCreateStemSeparator (int32_t numOfModels, const char** modelFilepaths, int32_t numOfChannels, double sampleRate);
 
 	/**
 	 * Deletes a processor instance.
@@ -210,7 +231,49 @@ extern "C"
 	 */
 	HANCE_API void hanceGetProcessorInfo (HanceProcessorHandle processorHandle, HanceProcessorInfo* processorInfo);
 
+	/**
+	 * Returns a parameter value
+	 * @param processorHandle				Handle to the audio processor.
+	 * @param parameterIndex				Index of the parameter to return. The available parameters are
+	 * 										defines with HANCE_PARAM as prefix.
+	 * @return								The current parameter value.
+	 */
+	HANCE_API float hanceGetParameterValue (HanceProcessorHandle processorHandle, int32_t parameterIndex);
+
+	/**
+	 * Sets a parameter value
+	 * @param processorHandle				Handle to the audio processor.
+	 * @param parameterIndex				Index of the parameter to return. The available parameters are
+	 * 										defines with HANCE_PARAM as prefix.
+	 * @param parameterValue				The new parameter value.
+	 */
+	HANCE_API void hanceSetParameterValue (HanceProcessorHandle processorHandle, int32_t parameterIndex, float parameterValue);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
+/** \brief The maximum attenuation of the unwanted signal in dB. The
+	valid value range is <-inf, 0] */
+#define HANCE_PARAM_MAXATTENUATION			0x0001
+
+/** \brief The sensitivity of the processing in percent ranging from
+	-100% to 100%. 0% is neutral and positive values will increase
+	the amount of reduction. */
+#define HANCE_PARAM_SENSITIVITY				0x0002
+
+/** \brief Enables or disables mask frequency extrapolation. When using
+     models that aren't trained on the full frequency band, this setting
+	 determines if the output audio should be band-limited to the
+	 frequency range of the model or if the high-frequency masks should
+	 be extrapolated. Settings below 0.5 disables the extrapolaion
+	 while settings equal or above 0.5 enables it.  */
+#define HANCE_PARAM_MASKEXTRAPOLATION		0x0003
+
+/** \brief The stem dependent sensitivities of the processing in
+     percent ranging from -100% to 100%. 0% is neutral and positive
+	 values will increase the amount of reduction. You can set
+	 individual stems by adding the model index to the define, so
+	 HANCE_PARAM_MODEL_SENSITIVITIES will be the first model,
+	 HANCE_PARAM_MODEL_SENSITIVITIES + 1 the second, and so forth. */
+#define HANCE_PARAM_MODEL_SENSITIVITIES		0x1000

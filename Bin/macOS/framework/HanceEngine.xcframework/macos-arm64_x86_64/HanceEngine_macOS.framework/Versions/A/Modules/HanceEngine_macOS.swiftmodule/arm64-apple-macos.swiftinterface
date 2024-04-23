@@ -1,0 +1,45 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-macos10.13 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name HanceEngine_macOS
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+@_exported import HanceEngine_macOS
+import Swift
+import _Concurrency
+import _StringProcessing
+public class HanceEngine {
+  public struct ProcessorInfo {
+    public var sampleRate: Swift.Double
+    public var numOfModelChannels: Swift.Int
+    public var latencyInSamples: Swift.Int
+  }
+  public enum Parameters : Swift.UInt32 {
+    case maximumAttenuation
+    case sensitivity
+    case maskExtrapolation
+    case firstModelSensitivity
+    public init?(rawValue: Swift.UInt32)
+    public typealias RawValue = Swift.UInt32
+    public var rawValue: Swift.UInt32 {
+      get
+    }
+  }
+  public init?(modelFilepath: Swift.String, numOfChannels: Swift.UInt32, sampleRate: Swift.Double)
+  public init?(numOfStems: Swift.UInt32, modelFilepaths: [Swift.String], numOfChannels: Swift.UInt32, sampleRate: Swift.Double)
+  public func addLicense(_ licenseString: Swift.String) -> Swift.Bool
+  public func addAudio(pcmChannels: [Swift.UnsafeMutableRawPointer?], numOfSamples: Swift.UInt32)
+  public func addAudioInterleaved(pcmChannels: Swift.UnsafeMutableRawPointer?, numOfSamples: Swift.UInt32)
+  public func getNumOfPendingSamples() -> Swift.UInt32
+  @discardableResult
+  public func getAudio(pcmChannels: [Swift.UnsafeMutableRawPointer?], numOfSamples: Swift.UInt32) -> Swift.Bool
+  @discardableResult
+  public func getAudioInterleaved(pcmChannels: Swift.UnsafeMutableRawPointer?, numOfSamples: Swift.UInt32) -> Swift.Bool
+  public func resetProcessorState()
+  public func getProcessorInfo() -> HanceEngine_macOS.HanceEngine.ProcessorInfo
+  public func getParameterValue(for param: HanceEngine_macOS.HanceEngine.Parameters) -> Swift.Float
+  public func setParameter(for param: HanceEngine_macOS.HanceEngine.Parameters, to value: Swift.Float)
+  @objc deinit
+}
+extension HanceEngine_macOS.HanceEngine.Parameters : Swift.Equatable {}
+extension HanceEngine_macOS.HanceEngine.Parameters : Swift.Hashable {}
+extension HanceEngine_macOS.HanceEngine.Parameters : Swift.RawRepresentable {}

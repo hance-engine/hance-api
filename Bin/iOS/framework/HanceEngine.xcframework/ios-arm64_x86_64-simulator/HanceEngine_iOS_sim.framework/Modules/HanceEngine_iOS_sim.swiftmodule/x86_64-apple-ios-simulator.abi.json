@@ -1,0 +1,1129 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "HanceEngine_iOS_sim",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "HanceEngine",
+        "printedName": "HanceEngine",
+        "children": [
+          {
+            "kind": "TypeDecl",
+            "name": "ProcessorInfo",
+            "printedName": "ProcessorInfo",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "sampleRate",
+                "printedName": "sampleRate",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV10sampleRateSdvp",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV10sampleRateSdvp",
+                "moduleName": "HanceEngine_iOS_sim",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Double",
+                        "printedName": "Swift.Double",
+                        "usr": "s:Sd"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV10sampleRateSdvg",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV10sampleRateSdvg",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Set",
+                    "printedName": "Set()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Double",
+                        "printedName": "Swift.Double",
+                        "usr": "s:Sd"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV10sampleRateSdvs",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV10sampleRateSdvs",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "set"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Modify",
+                    "printedName": "Modify()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV10sampleRateSdvM",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV10sampleRateSdvM",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "_modify"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "numOfModelChannels",
+                "printedName": "numOfModelChannels",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV18numOfModelChannelsSivp",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV18numOfModelChannelsSivp",
+                "moduleName": "HanceEngine_iOS_sim",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV18numOfModelChannelsSivg",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV18numOfModelChannelsSivg",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Set",
+                    "printedName": "Set()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV18numOfModelChannelsSivs",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV18numOfModelChannelsSivs",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "set"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Modify",
+                    "printedName": "Modify()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV18numOfModelChannelsSivM",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV18numOfModelChannelsSivM",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "_modify"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "latencyInSamples",
+                "printedName": "latencyInSamples",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV16latencyInSamplesSivp",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV16latencyInSamplesSivp",
+                "moduleName": "HanceEngine_iOS_sim",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV16latencyInSamplesSivg",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV16latencyInSamplesSivg",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Set",
+                    "printedName": "Set()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV16latencyInSamplesSivs",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV16latencyInSamplesSivs",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "set"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Modify",
+                    "printedName": "Modify()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV16latencyInSamplesSivM",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV16latencyInSamplesSivM",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "_modify"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Struct",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C13ProcessorInfoV",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl"
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "Parameters",
+            "printedName": "Parameters",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "maximumAttenuation",
+                "printedName": "maximumAttenuation",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(HanceEngine_iOS_sim.HanceEngine.Parameters.Type) -> HanceEngine_iOS_sim.HanceEngine.Parameters",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Parameters",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                        "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Parameters",
+                            "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                            "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO18maximumAttenuationyA2EmF",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C10ParametersO18maximumAttenuationyA2EmF",
+                "moduleName": "HanceEngine_iOS_sim",
+                "declAttributes": [
+                  "RawDocComment"
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "sensitivity",
+                "printedName": "sensitivity",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(HanceEngine_iOS_sim.HanceEngine.Parameters.Type) -> HanceEngine_iOS_sim.HanceEngine.Parameters",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Parameters",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                        "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Parameters",
+                            "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                            "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO11sensitivityyA2EmF",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C10ParametersO11sensitivityyA2EmF",
+                "moduleName": "HanceEngine_iOS_sim",
+                "declAttributes": [
+                  "RawDocComment"
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "maskExtrapolation",
+                "printedName": "maskExtrapolation",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(HanceEngine_iOS_sim.HanceEngine.Parameters.Type) -> HanceEngine_iOS_sim.HanceEngine.Parameters",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Parameters",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                        "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Parameters",
+                            "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                            "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO17maskExtrapolationyA2EmF",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C10ParametersO17maskExtrapolationyA2EmF",
+                "moduleName": "HanceEngine_iOS_sim",
+                "declAttributes": [
+                  "RawDocComment"
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "firstModelSensitivity",
+                "printedName": "firstModelSensitivity",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(HanceEngine_iOS_sim.HanceEngine.Parameters.Type) -> HanceEngine_iOS_sim.HanceEngine.Parameters",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Parameters",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                        "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Parameters",
+                            "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                            "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO21firstModelSensitivityyA2EmF",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C10ParametersO21firstModelSensitivityyA2EmF",
+                "moduleName": "HanceEngine_iOS_sim",
+                "declAttributes": [
+                  "RawDocComment"
+                ]
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Parameters",
+                        "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                        "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt32",
+                    "printedName": "Swift.UInt32",
+                    "usr": "s:s6UInt32V"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO8rawValueAESgs6UInt32V_tcfc",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C10ParametersO8rawValueAESgs6UInt32V_tcfc",
+                "moduleName": "HanceEngine_iOS_sim",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt32",
+                    "printedName": "Swift.UInt32",
+                    "usr": "s:s6UInt32V"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO8rawValues6UInt32Vvp",
+                "mangledName": "$s19HanceEngine_iOS_sim0aB0C10ParametersO8rawValues6UInt32Vvp",
+                "moduleName": "HanceEngine_iOS_sim",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UInt32",
+                        "printedName": "Swift.UInt32",
+                        "usr": "s:s6UInt32V"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO8rawValues6UInt32Vvg",
+                    "mangledName": "$s19HanceEngine_iOS_sim0aB0C10ParametersO8rawValues6UInt32Vvg",
+                    "moduleName": "HanceEngine_iOS_sim",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C10ParametersO",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "enumRawTypeName": "UInt32",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UInt32",
+                        "printedName": "Swift.UInt32",
+                        "usr": "s:s6UInt32V"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(modelFilepath:numOfChannels:sampleRate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "HanceEngine_iOS_sim.HanceEngine?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HanceEngine",
+                    "printedName": "HanceEngine_iOS_sim.HanceEngine",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C13modelFilepath13numOfChannels10sampleRateACSgSS_s6UInt32VSdtcfc",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C13modelFilepath13numOfChannels10sampleRateACSgSS_s6UInt32VSdtcfc",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(numOfStems:modelFilepaths:numOfChannels:sampleRate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "HanceEngine_iOS_sim.HanceEngine?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "HanceEngine",
+                    "printedName": "HanceEngine_iOS_sim.HanceEngine",
+                    "usr": "s:19HanceEngine_iOS_sim0aB0C"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C10numOfStems14modelFilepaths0eF8Channels10sampleRateACSgs6UInt32V_SaySSGAJSdtcfc",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C10numOfStems14modelFilepaths0eF8Channels10sampleRateACSgs6UInt32V_SaySSGAJSdtcfc",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "addLicense",
+            "printedName": "addLicense(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C10addLicenseySbSSF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C10addLicenseySbSSF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addAudio",
+            "printedName": "addAudio(pcmChannels:numOfSamples:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.UnsafeMutableRawPointer?]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.UnsafeMutableRawPointer?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UnsafeMutableRawPointer",
+                        "printedName": "Swift.UnsafeMutableRawPointer",
+                        "usr": "s:Sv"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C8addAudio11pcmChannels12numOfSamplesySaySvSgG_s6UInt32VtF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C8addAudio11pcmChannels12numOfSamplesySaySvSgG_s6UInt32VtF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addAudioInterleaved",
+            "printedName": "addAudioInterleaved(pcmChannels:numOfSamples:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.UnsafeMutableRawPointer?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UnsafeMutableRawPointer",
+                    "printedName": "Swift.UnsafeMutableRawPointer",
+                    "usr": "s:Sv"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C19addAudioInterleaved11pcmChannels12numOfSamplesySvSg_s6UInt32VtF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C19addAudioInterleaved11pcmChannels12numOfSamplesySvSg_s6UInt32VtF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getNumOfPendingSamples",
+            "printedName": "getNumOfPendingSamples()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C22getNumOfPendingSampless6UInt32VyF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C22getNumOfPendingSampless6UInt32VyF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getAudio",
+            "printedName": "getAudio(pcmChannels:numOfSamples:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.UnsafeMutableRawPointer?]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.UnsafeMutableRawPointer?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UnsafeMutableRawPointer",
+                        "printedName": "Swift.UnsafeMutableRawPointer",
+                        "usr": "s:Sv"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C8getAudio11pcmChannels12numOfSamplesSbSaySvSgG_s6UInt32VtF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C8getAudio11pcmChannels12numOfSamplesSbSaySvSgG_s6UInt32VtF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "DiscardableResult",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getAudioInterleaved",
+            "printedName": "getAudioInterleaved(pcmChannels:numOfSamples:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.UnsafeMutableRawPointer?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UnsafeMutableRawPointer",
+                    "printedName": "Swift.UnsafeMutableRawPointer",
+                    "usr": "s:Sv"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C19getAudioInterleaved11pcmChannels12numOfSamplesSbSvSg_s6UInt32VtF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C19getAudioInterleaved11pcmChannels12numOfSamplesSbSvSg_s6UInt32VtF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "DiscardableResult",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "resetProcessorState",
+            "printedName": "resetProcessorState()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C19resetProcessorStateyyF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C19resetProcessorStateyyF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getProcessorInfo",
+            "printedName": "getProcessorInfo()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ProcessorInfo",
+                "printedName": "HanceEngine_iOS_sim.HanceEngine.ProcessorInfo",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C13ProcessorInfoV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C16getProcessorInfoAC0fG0VyF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C16getProcessorInfoAC0fG0VyF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getParameterValue",
+            "printedName": "getParameterValue(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Parameters",
+                "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C17getParameterValue3forSfAC10ParametersO_tF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C17getParameterValue3forSfAC10ParametersO_tF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setParameter",
+            "printedName": "setParameter(for:to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Parameters",
+                "printedName": "HanceEngine_iOS_sim.HanceEngine.Parameters",
+                "usr": "s:19HanceEngine_iOS_sim0aB0C10ParametersO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:19HanceEngine_iOS_sim0aB0C12setParameter3for2toyAC10ParametersO_SftF",
+            "mangledName": "$s19HanceEngine_iOS_sim0aB0C12setParameter3for2toyAC10ParametersO_SftF",
+            "moduleName": "HanceEngine_iOS_sim",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:19HanceEngine_iOS_sim0aB0C",
+        "mangledName": "$s19HanceEngine_iOS_sim0aB0C",
+        "moduleName": "HanceEngine_iOS_sim",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1086,
+      "length": 6,
+      "value": "0x0001"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1307,
+      "length": 6,
+      "value": "0x0002"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1793,
+      "length": 6,
+      "value": "0x0003"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2252,
+      "length": 6,
+      "value": "0x1000"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1086,
+      "length": 6,
+      "value": "0x0001"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1307,
+      "length": 6,
+      "value": "0x0002"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1793,
+      "length": 6,
+      "value": "0x0003"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2252,
+      "length": 6,
+      "value": "0x1000"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1086,
+      "length": 6,
+      "value": "0x0001"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1307,
+      "length": 6,
+      "value": "0x0002"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1793,
+      "length": 6,
+      "value": "0x0003"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2252,
+      "length": 6,
+      "value": "0x1000"
+    },
+    {
+      "filePath": "\/Users\/stian\/Documents\/Development\/hanceengine\/swift-api\/framework\/common\/HanceEngine.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2903,
+      "length": 1,
+      "value": "1"
+    }
+  ]
+}

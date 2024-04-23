@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HANCE Model Inference Library: HanceEngine/Source/HanceEngine.h File Reference</title>
+<title>HANCE Model Inference Library: HanceEngine.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,20 +61,18 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_38f9b6d34b4e94e35132ec677864a18a.html">HanceEngine</a></li><li class="navelem"><a class="el" href="dir_e8379b35f50671d09622f4d5a725e928.html">Source</a></li>  </ul>
-</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">HanceEngine.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;inttypes.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
 </div>
 <p><a href="_hance_engine_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -84,10 +82,28 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_hance_processor_info.html" title="The HanceProcessorInfo contains information about a neural network based audio processor.">HanceProcessorInfo</a> contains information about a neural network based audio processor.  <a href="struct_hance_processor_info.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a43e1950164072a16fbaef5fb92ad0655"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a43e1950164072a16fbaef5fb92ad0655">HANCE_PARAM_MAXATTENUATION</a>&#160;&#160;&#160;0x0001</td></tr>
+<tr class="memdesc:a43e1950164072a16fbaef5fb92ad0655"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum attenuation of the unwanted signal in dB. The valid value range is &lt;-inf, 0].  <a href="_hance_engine_8h.html#a43e1950164072a16fbaef5fb92ad0655">More...</a><br /></td></tr>
+<tr class="separator:a43e1950164072a16fbaef5fb92ad0655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a279104af6184a3e5f6cfddb5bb704873"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a279104af6184a3e5f6cfddb5bb704873">HANCE_PARAM_SENSITIVITY</a>&#160;&#160;&#160;0x0002</td></tr>
+<tr class="memdesc:a279104af6184a3e5f6cfddb5bb704873"><td class="mdescLeft">&#160;</td><td class="mdescRight">The sensitivity of the processing in percent ranging from -100% to 100%. 0% is neutral and positive values will increase the amount of reduction.  <a href="_hance_engine_8h.html#a279104af6184a3e5f6cfddb5bb704873">More...</a><br /></td></tr>
+<tr class="separator:a279104af6184a3e5f6cfddb5bb704873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a67f55deda131a4dd118c8604a13e16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a2a67f55deda131a4dd118c8604a13e16">HANCE_PARAM_MASKEXTRAPOLATION</a>&#160;&#160;&#160;0x0003</td></tr>
+<tr class="memdesc:a2a67f55deda131a4dd118c8604a13e16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables mask frequency extrapolation. When using models that aren't trained on the full frequency band, this setting determines if the output audio should be band-limited to the frequency range of the model or if the high-frequency masks should be extrapolated. Settings below 0.5 disables the extrapolaion while settings equal or above 0.5 enables it. <br  />
+  <a href="_hance_engine_8h.html#a2a67f55deda131a4dd118c8604a13e16">More...</a><br /></td></tr>
+<tr class="separator:a2a67f55deda131a4dd118c8604a13e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157eb05448251e151aa8b90d1a57a2ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a157eb05448251e151aa8b90d1a57a2ef">HANCE_PARAM_MODEL_SENSITIVITIES</a>&#160;&#160;&#160;0x1000</td></tr>
+<tr class="memdesc:a157eb05448251e151aa8b90d1a57a2ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The stem dependent sensitivities of the processing in percent ranging from -100% to 100%. 0% is neutral and positive values will increase the amount of reduction. You can set individual stems by adding the model index to the define, so HANCE_PARAM_MODEL_SENSITIVITIES will be the first model, HANCE_PARAM_MODEL_SENSITIVITIES + 1 the second, and so forth.  <a href="_hance_engine_8h.html#a157eb05448251e151aa8b90d1a57a2ef">More...</a><br /></td></tr>
+<tr class="separator:a157eb05448251e151aa8b90d1a57a2ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a15bc7271246e1a0bbc7f8b1f4a572617"><td class="memItemLeft" align="right" valign="top">typedef void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a></td></tr>
 <tr class="separator:a15bc7271246e1a0bbc7f8b1f4a572617"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a4890189bd9bf23ccdf3f815ce7dac4"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_hance_processor_info.html">HanceProcessorInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a2a4890189bd9bf23ccdf3f815ce7dac4">HanceProcessorInfo</a></td></tr>
+<tr class="separator:a2a4890189bd9bf23ccdf3f815ce7dac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -95,6 +111,8 @@ Functions</h2></td></tr>
 <tr class="separator:a6b5270e363f76580bcd324bc3302d03b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66a537c952ed493d7420cfeac11a02f4"><td class="memItemLeft" align="right" valign="top">HANCE_API <a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a66a537c952ed493d7420cfeac11a02f4">hanceCreateProcessor</a> (const char *modelFilepath, int32_t numOfChannels, double sampleRate)</td></tr>
 <tr class="separator:a66a537c952ed493d7420cfeac11a02f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae607d34fe1467afb90866cef11511cb0"><td class="memItemLeft" align="right" valign="top">HANCE_API <a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#ae607d34fe1467afb90866cef11511cb0">hanceCreateStemSeparator</a> (int32_t numOfModels, const char **modelFilepaths, int32_t numOfChannels, double sampleRate)</td></tr>
+<tr class="separator:ae607d34fe1467afb90866cef11511cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a392bbe2587d859e1551c54aba9b7f905"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a392bbe2587d859e1551c54aba9b7f905">hanceDeleteProcessor</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle)</td></tr>
 <tr class="separator:a392bbe2587d859e1551c54aba9b7f905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a143390b938eb3b25844ce75f4e692954"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a143390b938eb3b25844ce75f4e692954">hanceAddAudio</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle, const float **pcmChannels, int32_t numOfSamples)</td></tr>
@@ -111,7 +129,77 @@ Functions</h2></td></tr>
 <tr class="separator:aee928fec73868f94d8176fd0f1d886fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2eb49c6517178f15fe2658c33198839"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#ae2eb49c6517178f15fe2658c33198839">hanceGetProcessorInfo</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle, <a class="el" href="struct_hance_processor_info.html">HanceProcessorInfo</a> *processorInfo)</td></tr>
 <tr class="separator:ae2eb49c6517178f15fe2658c33198839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa80d000b6d2162a5e1b8e12ba5ee067a"><td class="memItemLeft" align="right" valign="top">HANCE_API float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#aa80d000b6d2162a5e1b8e12ba5ee067a">hanceGetParameterValue</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle, int32_t parameterIndex)</td></tr>
+<tr class="separator:aa80d000b6d2162a5e1b8e12ba5ee067a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b4ad8ba51f91a018a70ac1adabe877a"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a">hanceSetParameterValue</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle, int32_t parameterIndex, float parameterValue)</td></tr>
+<tr class="separator:a9b4ad8ba51f91a018a70ac1adabe877a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a2a67f55deda131a4dd118c8604a13e16" name="a2a67f55deda131a4dd118c8604a13e16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a67f55deda131a4dd118c8604a13e16">&#9670;&nbsp;</a></span>HANCE_PARAM_MASKEXTRAPOLATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HANCE_PARAM_MASKEXTRAPOLATION&#160;&#160;&#160;0x0003</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables or disables mask frequency extrapolation. When using models that aren't trained on the full frequency band, this setting determines if the output audio should be band-limited to the frequency range of the model or if the high-frequency masks should be extrapolated. Settings below 0.5 disables the extrapolaion while settings equal or above 0.5 enables it. <br  />
+ </p>
+
+</div>
+</div>
+<a id="a43e1950164072a16fbaef5fb92ad0655" name="a43e1950164072a16fbaef5fb92ad0655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43e1950164072a16fbaef5fb92ad0655">&#9670;&nbsp;</a></span>HANCE_PARAM_MAXATTENUATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HANCE_PARAM_MAXATTENUATION&#160;&#160;&#160;0x0001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The maximum attenuation of the unwanted signal in dB. The valid value range is &lt;-inf, 0]. </p>
+
+</div>
+</div>
+<a id="a157eb05448251e151aa8b90d1a57a2ef" name="a157eb05448251e151aa8b90d1a57a2ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a157eb05448251e151aa8b90d1a57a2ef">&#9670;&nbsp;</a></span>HANCE_PARAM_MODEL_SENSITIVITIES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HANCE_PARAM_MODEL_SENSITIVITIES&#160;&#160;&#160;0x1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The stem dependent sensitivities of the processing in percent ranging from -100% to 100%. 0% is neutral and positive values will increase the amount of reduction. You can set individual stems by adding the model index to the define, so HANCE_PARAM_MODEL_SENSITIVITIES will be the first model, HANCE_PARAM_MODEL_SENSITIVITIES + 1 the second, and so forth. </p>
+
+</div>
+</div>
+<a id="a279104af6184a3e5f6cfddb5bb704873" name="a279104af6184a3e5f6cfddb5bb704873"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a279104af6184a3e5f6cfddb5bb704873">&#9670;&nbsp;</a></span>HANCE_PARAM_SENSITIVITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HANCE_PARAM_SENSITIVITY&#160;&#160;&#160;0x0002</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The sensitivity of the processing in percent ranging from -100% to 100%. 0% is neutral and positive values will increase the amount of reduction. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a15bc7271246e1a0bbc7f8b1f4a572617" name="a15bc7271246e1a0bbc7f8b1f4a572617"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a15bc7271246e1a0bbc7f8b1f4a572617">&#9670;&nbsp;</a></span>HanceProcessorHandle</h2>
@@ -125,6 +213,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >The processor handle refers to an audio processor that can process PCM audio in 32-bit floating point using a specified inference model. The handle created using <a class="el" href="_hance_engine_8h.html#a66a537c952ed493d7420cfeac11a02f4">hanceCreateProcessor</a>. </p>
+
+</div>
+</div>
+<a id="a2a4890189bd9bf23ccdf3f815ce7dac4" name="a2a4890189bd9bf23ccdf3f815ce7dac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a4890189bd9bf23ccdf3f815ce7dac4">&#9670;&nbsp;</a></span>HanceProcessorInfo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_hance_processor_info.html">HanceProcessorInfo</a> <a class="el" href="struct_hance_processor_info.html">HanceProcessorInfo</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -281,6 +383,56 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae607d34fe1467afb90866cef11511cb0" name="ae607d34fe1467afb90866cef11511cb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae607d34fe1467afb90866cef11511cb0">&#9670;&nbsp;</a></span>hanceCreateStemSeparator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANCE_API <a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> hanceCreateStemSeparator </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>numOfModels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>modelFilepaths</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>numOfChannels</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>sampleRate</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Creates a processor that performs stem separation, loads a set of model files and returns a handle to the processor instance if successful. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">numOfModels</td><td>The number of model files to load </td></tr>
+    <tr><td class="paramname">modelFilepaths</td><td>Pointer to an array of pointers to zero terminated strings containing the file paths of the model files to load. </td></tr>
+    <tr><td class="paramname">numOfChannels</td><td>The number of channels in the audio to process. </td></tr>
+    <tr><td class="paramname">sampleRate</td><td>The sample rate of the audio to process. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A valid processor handle on success, otherwise nullptr. </dd></dl>
+
+</div>
+</div>
 <a id="a392bbe2587d859e1551c54aba9b7f905" name="a392bbe2587d859e1551c54aba9b7f905"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a392bbe2587d859e1551c54aba9b7f905">&#9670;&nbsp;</a></span>hanceDeleteProcessor()</h2>
 
@@ -414,6 +566,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa80d000b6d2162a5e1b8e12ba5ee067a" name="aa80d000b6d2162a5e1b8e12ba5ee067a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa80d000b6d2162a5e1b8e12ba5ee067a">&#9670;&nbsp;</a></span>hanceGetParameterValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANCE_API float hanceGetParameterValue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a>&#160;</td>
+          <td class="paramname"><em>processorHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>parameterIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Returns a parameter value </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">processorHandle</td><td>Handle to the audio processor. </td></tr>
+    <tr><td class="paramname">parameterIndex</td><td>Index of the parameter to return. The available parameters are defines with HANCE_PARAM as prefix. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The current parameter value. </dd></dl>
+
+</div>
+</div>
 <a id="ae2eb49c6517178f15fe2658c33198839" name="ae2eb49c6517178f15fe2658c33198839"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae2eb49c6517178f15fe2658c33198839">&#9670;&nbsp;</a></span>hanceGetProcessorInfo()</h2>
 
@@ -467,6 +655,48 @@ Functions</h2></td></tr>
 <p >Resets the processor state and clears all delay lines. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">processorHandle</td><td>Handle to the audio processor. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9b4ad8ba51f91a018a70ac1adabe877a" name="a9b4ad8ba51f91a018a70ac1adabe877a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b4ad8ba51f91a018a70ac1adabe877a">&#9670;&nbsp;</a></span>hanceSetParameterValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANCE_API void hanceSetParameterValue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a>&#160;</td>
+          <td class="paramname"><em>processorHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>parameterIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>parameterValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Sets a parameter value </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">processorHandle</td><td>Handle to the audio processor. </td></tr>
+    <tr><td class="paramname">parameterIndex</td><td>Index of the parameter to return. The available parameters are defines with HANCE_PARAM as prefix. </td></tr>
+    <tr><td class="paramname">parameterValue</td><td>The new parameter value. </td></tr>
   </table>
   </dd>
 </dl>

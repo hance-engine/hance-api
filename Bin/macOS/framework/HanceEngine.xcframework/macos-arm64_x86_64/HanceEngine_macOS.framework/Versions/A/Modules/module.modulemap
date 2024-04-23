@@ -1,0 +1,11 @@
+framework module HanceEngine_macOS {
+  umbrella header "HanceEngine_macOS.h"
+
+  export *
+  module * { export * }
+}
+
+module HanceEngine_macOS.Swift {
+  header "HanceEngine_macOS-Swift.h"
+  requires objc
+}

@@ -13,13 +13,13 @@ a written permission from HANCE AS.
 #include "HanceEngine.h"
 
 // We include methods to decode and encode audio in the RIFF Wave format.
-#include "RiffWave.h"
+#include "../RiffWave/RiffWave.h"
 #include <vector>
 
 using namespace std;
 
 // Some global handles that we need to close in the event of an error
-FILE* g_inputFileHandle = nullptr;
+FILE* g_inputFileHandle  = nullptr;
 FILE* g_outputFileHandle = nullptr;
 HanceProcessorHandle g_processorHandle = nullptr;
 
@@ -40,20 +40,20 @@ void handleError (string errorMessage)
 
 int main (int argc, char* argv[])
 {
-    // You can add a license key for a pre-trained HANCE model using the hanceAddLicense method. If
-    // you don't have a license, the audio output will include the "Audio enhancement by HANCE" at
-    // irregular intervals.
-    // hanceAddLicense ("XXXX");
-
     // Parse the input arguments
     if (argc < 4) {
         cout << "Incorrect number of arguments." << endl
-             << "Usage: InferenceExample [model filepath] [input filepath] [output filepath]" << endl;
+             << "Usage: ProcessFile [model filepath] [input filepath] [output filepath] [license key (optional)]" << endl;
         return -1;
     }
-    char* modelFilePath = argv[1];
-    char* inputFilePath = argv[2];
+    char* modelFilePath  = argv[1];
+    char* inputFilePath  = argv[2];
     char* outputFilePath = argv[3];
+
+    if (argc == 5) {
+        if (!hanceAddLicense (argv[4]))
+            handleError ("License key not accepted.");
+    }
 
     // Create file handles for audio input and output
     g_inputFileHandle = fopen (inputFilePath, "rb");
@@ -66,8 +66,8 @@ int main (int argc, char* argv[])
 
     // Parse input file
     int numOfSamplesInSource = 0;
-    int numOfChannels = 0;
-    double sampleRate = 0.0;
+    int numOfChannels        = 0;
+    double sampleRate        = 0.0;
     if (!parseRiffHeader (g_inputFileHandle, numOfSamplesInSource, numOfChannels, sampleRate))
         handleError ("The input file does not have a valid format.");
 
@@ -80,11 +80,18 @@ int main (int argc, char* argv[])
     if (g_processorHandle == nullptr)
         handleError ("Unable to create the HANCE audio processor.");
 
+    // Adjust the settings of the processing
+    // Maximum attenuation in dB in the range [-inf, 0]
+    hanceSetParameterValue (g_processorHandle, HANCE_PARAM_MAXATTENUATION, -20.f); 
+
+    // Sensitivity of the detection in % in the range [-100, 100] with 0% being neutral.
+    hanceSetParameterValue (g_processorHandle, HANCE_PARAM_SENSITIVITY, 0.f);
+
+    // Start processing loop
     cout << "Starting processing:" << endl;
 
-    int numOfSamplesWritten = 0;
-    int numOfSamplesRead = 0;
-
+    int numOfSamplesWritten              = 0;
+    int numOfSamplesRead                 = 0;
     const int maxNumberOfSamplesInBuffer = 2048;
     vector<float> audioBuffer (numOfChannels * maxNumberOfSamplesInBuffer);
 
@@ -110,13 +117,13 @@ int main (int argc, char* argv[])
         // Now, we check how many samples that are ready for pick-up
         int numOfSamplesToWrite = min (hanceGetNumOfPendingSamples (g_processorHandle), numOfSamplesInSource - numOfSamplesWritten);
 
-        // Fetch and save the audio to file if there's anything ready (we skip error handling for simplicity)
+        // Fetch and save the audio to file if there's anything ready
         if (numOfSamplesToWrite > 0) {
             vector<float> processedBuffer (numOfChannels * numOfSamplesToWrite);
             if (!hanceGetAudioInterleaved (g_processorHandle, processedBuffer.data(), numOfSamplesToWrite))
                 handleError ("Unable to get audio from the HANCE audio processor.");
 
-            // Write audio to file (we skip error handling for simplicity)
+            // Write audio to file
             if (!writeRiffAudio (g_outputFileHandle, processedBuffer.data(), (int32_t) processedBuffer.size()))
                 handleError ("Unable to write audio to the output file.");
             numOfSamplesWritten += numOfSamplesToWrite;

@@ -58,6 +58,108 @@ class HanceEngine():
                 processor_info_parsed[field[0]] = getattr(processor_info, field[0])
             return processor_info_parsed
 
+        def get_max_attenuation(self) -> float:
+            """
+            Returns the current maximum attenuation setting in dB
+            The valid value range is <-inf, 0]
+            """
+            return self.hance_engine.hanceGetParameterValue(self.handle, self.hance_engine.MAXATTENUATION)
+
+        def set_max_attenuation(self, max_attenuation : float):
+            """
+            Sets the current maximum attenuation setting in dB
+            The valid value range is <-inf, 0]
+            """
+            return self.hance_engine.hanceSetParameterValue(self.handle, self.hance_engine.MAXATTENUATION, max_attenuation)
+
+        def get_sensitivity(self) -> float:
+            """
+            Returns the current sensitivity in percent. 0% is neutral and positive
+            values will increase the amount of reduction.
+            The valid value range is [-100, 100]
+            """
+            return self.hance_engine.hanceGetParameterValue(self.handle, self.hance_engine.SENSITIVITY)
+
+        def set_sensitivity(self, sensitivity : float):
+            """
+            Sets the current sensitivity in percent. 0% is neutral and positive
+            values will increase the amount of reduction.
+            The valid value range is [-100, 100]
+            """
+            return self.hance_engine.hanceSetParameterValue(self.handle, self.hance_engine.SENSITIVITY, sensitivity)
+
+    class StemSeparator():
+        def __init__(self, hance_engine : ctypes.CDLL, model_paths : list, num_of_channels : int, sample_rate : float):
+            self.hance_engine = hance_engine
+            self.num_of_models = len(model_paths)
+            self.num_of_input_channels = num_of_channels
+            self.num_of_output_channels = self.num_of_models * num_of_channels
+            
+            lpc_char = ctypes.POINTER(ctypes.c_char)
+            model_paths_ptrs = (lpc_char * (self.num_of_models))()
+            for i, model_path in enumerate(model_paths):
+                model_path = get_model_file_abs_path(model_path)
+                model_paths_ptrs[i] = ctypes.create_string_buffer(model_path.encode('utf-8'))
+
+            self.handle = self.hance_engine.hanceCreateStemSeparator(self.num_of_models, model_paths_ptrs, num_of_channels, sample_rate)
+            if not self.handle:
+                raise Exception("Unable to load HANCE model file.")
+            
+            # Disable mask extrapolation
+            self.hance_engine.hanceSetParameterValue(self.handle, self.hance_engine.MASKEXTRAPOLATION, 0.0)
+
+        def __del__(self):
+            self.hance_engine.hanceDeleteProcessor(self.handle)
+        
+        def process(self, audio_signal : np.array) -> bool:
+            """
+            Processes audio from a numpy array with the format [samples, channels]. The length of the processed audio
+            will normally differ from the input lengt due to latency and block based processing.
+            """
+            num_of_input_samples = audio_signal.shape[0]
+            interleaved_audio = audio_signal.flatten()
+            self.hance_engine.hanceAddAudioInterleaved(self.handle, interleaved_audio.ctypes.data_as(ctypes.POINTER(ctypes.c_float)), num_of_input_samples)
+            num_of_output_samples = self.hance_engine.hanceGetNumOfPendingSamples(self.handle)
+            if num_of_output_samples > 0:
+                num_of_output_elements = self.num_of_output_channels * num_of_output_samples
+                PCMArray = ctypes.c_float * num_of_output_elements
+                pcm_out = PCMArray(*range(num_of_output_elements))        
+                self.hance_engine.hanceGetAudioInterleaved(self.handle, ctypes.cast(pcm_out, ctypes.POINTER(ctypes.c_float)), num_of_output_samples)
+                return np.array(pcm_out).reshape(num_of_output_samples, self.num_of_output_channels)
+            else:
+                return np.empty((0,0))
+
+        def reset(self):
+            self.hance_engine.hanceResetProcessor()
+
+        def get_info(self):
+            """
+            Returns a processor_info dict with information about the processor.
+            """
+            processor_info = ProcessorInfo()
+            self.hance_engine.hanceGetProcessorInfo(self.handle, ctypes.byref(processor_info))
+            
+            processor_info_parsed = {}
+            for field in processor_info_parsed._fields_:
+                processor_info_parsed[field[0]] = getattr(processor_info, field[0])
+            return processor_info_parsed
+
+        def get_sensitivity(self, model_index : int) -> float:
+            """
+            Returns the current sensitivity in percent. 0% is neutral and positive
+            values will increase the amount of reduction.
+            The valid value range is [-100, 100]
+            """
+            return self.hance_engine.hanceGetParameterValue(self.handle, self.hance_engine.SENSITIVITIES_BASE + model_index)
+
+        def set_sensitivity(self, model_index : int, sensitivity : float):
+            """
+            Sets the current sensitivity in percent. 0% is neutral and positive
+            values will increase the amount of reduction.
+            The valid value range is [-100, 100]
+            """
+            return self.hance_engine.hanceSetParameterValue(self.handle, self.hance_engine.SENSITIVITIES_BASE + model_index, sensitivity)
+           
     def __init__(self):
         path_to_binary = self.find_binary()
         
@@ -69,6 +171,15 @@ class HanceEngine():
         # HANCE_API bool hanceAddLicense (const char* licenseString);
         self.hance_engine.hanceAddLicense.argtypes = [ctypes.c_char_p]
         self.hance_engine.hanceAddLicense.restype = ctypes.c_bool
+
+    	# HANCE_API HanceProcessorHandle hanceCreateProcessor (const char* modelFilepath, int32_t numOfChannels, double sampleRate);
+        self.hance_engine.hanceCreateProcessor.argtypes = [ctypes.c_char_p, ctypes.c_int32, ctypes.c_double]
+        self.hance_engine.hanceCreateProcessor.restype = ctypes.c_void_p
+
+    	# HANCE_API HanceProcessorHandle hanceCreateStemSeparator (int32_t numOfModels, const char** modelFilepaths, int32_t numOfChannels, double sampleRate);
+        #self.hance_engine.hanceCreateStemSeparator.argtypes = [ctypes.c_int32, ctypes.c_char_p, ctypes.c_int32, ctypes.c_double]
+        self.hance_engine.hanceCreateStemSeparator.argtypes = [ctypes.c_int32, ctypes.POINTER(ctypes.POINTER(ctypes.c_char)), ctypes.c_int32, ctypes.c_double]
+        self.hance_engine.hanceCreateStemSeparator.restype = ctypes.c_void_p
 
     	# HANCE_API HanceProcessorHandle hanceCreateProcessor (const char* modelFilepath, int32_t numOfChannels, double sampleRate);
         self.hance_engine.hanceCreateProcessor.argtypes = [ctypes.c_char_p, ctypes.c_int32, ctypes.c_double]
@@ -98,6 +209,19 @@ class HanceEngine():
         self.hance_engine.hanceGetProcessorInfo.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
         self.hance_engine.hanceGetProcessorInfo.restype = None
 
+        # HANCE_API float hanceGetParameterValue (HanceProcessorHandle processorHandle, int32_t parameterIndex);
+        self.hance_engine.hanceGetParameterValue.argtypes = [ctypes.c_void_p, ctypes.c_int32]
+        self.hance_engine.hanceGetParameterValue.restype = ctypes.c_float
+
+    	# HANCE_API void hanceSetParameterValue (HanceProcessorHandle processorHandle, int32_t parameterIndex, float parameterValue);
+        self.hance_engine.hanceSetParameterValue.argtypes = [ctypes.c_void_p, ctypes.c_int32, ctypes.c_float]
+        self.hance_engine.hanceSetParameterValue.restype = None
+
+        self.MAXATTENUATION     = 0x0001
+        self.SENSITIVITY        = 0x0002
+        self.MASKEXTRAPOLATION  = 0x0003
+        self.SENSITIVITIES_BASE = 0x1000
+
         self.prev_samplerate = None
         self.prev_channels = None
     
@@ -108,27 +232,7 @@ class HanceEngine():
         """
         Creates an audio processor from a HANCE model file.
         """
-        model_file_abs_path = model_file_path
-        if not os.path.exists(model_file_abs_path):
-            #possible a relative path from list_models
-            found_model = False
-            
-            model_file_abs_path = os.path.join(MODULE_PATH, "models", model_file_path)
-            if os.path.exists(model_file_abs_path):
-                found_model = True
-                
-            if not found_model:
-                #Check the relative path from the github repo
-                up_one_folder = os.path.split(MODULE_PATH)[0]
-                up_two_folders = os.path.split(up_one_folder)[0]
-                model_file_abs_path = os.path.join(up_two_folders, "Models", model_file_path)
-                print(model_file_abs_path)
-                if os.path.exists(model_file_abs_path):
-                    found_model = True
-                
-            if not found_model:
-                raise Exception("Model file does not exist.")
-
+        model_file_abs_path = get_model_file_abs_path(model_file_path)
         return self.Processor (self.hance_engine, model_file_abs_path, num_of_channels, sample_rate)
 
     def find_binary(self) -> str:
@@ -152,11 +256,14 @@ class HanceEngine():
             if platform.architecture()[0] == '64bit':
                 path_to_binary = os.path.join(relative_path, "Windows_x64/HanceEngine.dll")
         elif platform.system() == "Darwin":
-            path_to_binary = os.path.join(relative_path, "macOS/HanceEngine.dylib")
+            path_to_binary = os.path.join(relative_path, "macOS/libHanceEngine.dylib")
         elif platform.system() == "Linux":
             path_to_binary = os.path.join(relative_path, "Linux/libHanceEngine.so")
         
         return path_to_binary
+    
+
+    
 
 class ProcessorInfo(ctypes.Structure):
     """ creates a struct to match hanceModelInfo """
@@ -165,6 +272,14 @@ class ProcessorInfo(ctypes.Structure):
                 ('sampleRate', ctypes.c_double),
                 ('numOfModelChannels', ctypes.c_int32),
                 ('latencyInSamples', ctypes.c_int32)
+                ]
+
+class ProcessorSettings(ctypes.Structure):
+    """ creates a struct to match hanceProcessorSettings """
+
+    _fields_ = [
+                ('sensitivity', ctypes.c_float),
+                ('maximumAttenuation', ctypes.c_float),
                 ]
 
 def list_models():
@@ -183,3 +298,28 @@ def list_models():
         if fn.endswith(".hance"):
             model_list.append(fn)
     return model_list
+
+
+def get_model_file_abs_path(model_file_path : str):
+    model_file_abs_path = model_file_path
+    if not os.path.exists(model_file_abs_path):
+        #possible a relative path from list_models
+        found_model = False
+        
+        model_file_abs_path = os.path.join(MODULE_PATH, "models", model_file_path)
+        if os.path.exists(model_file_abs_path):
+            found_model = True
+            
+        if not found_model:
+            #Check the relative path from the github repo
+            up_one_folder = os.path.split(MODULE_PATH)[0]
+            up_two_folders = os.path.split(up_one_folder)[0]
+            model_file_abs_path = os.path.join(up_two_folders, "Models", model_file_path)
+            print(model_file_abs_path)
+            if os.path.exists(model_file_abs_path):
+                found_model = True
+            
+        if not found_model:
+            raise Exception("Model file does not exist.")
+
+    return model_file_abs_path

@@ -4,10 +4,13 @@ var searchData=
   ['hanceaddaudiointerleaved_1',['hanceAddAudioInterleaved',['../_hance_engine_8h.html#a47327e05a3bd587ec69a036e5f433701',1,'HanceEngine.h']]],
   ['hanceaddlicense_2',['hanceAddLicense',['../_hance_engine_8h.html#a6b5270e363f76580bcd324bc3302d03b',1,'HanceEngine.h']]],
   ['hancecreateprocessor_3',['hanceCreateProcessor',['../_hance_engine_8h.html#a66a537c952ed493d7420cfeac11a02f4',1,'HanceEngine.h']]],
-  ['hancedeleteprocessor_4',['hanceDeleteProcessor',['../_hance_engine_8h.html#a392bbe2587d859e1551c54aba9b7f905',1,'HanceEngine.h']]],
-  ['hancegetaudio_5',['hanceGetAudio',['../_hance_engine_8h.html#a514edf661743d2bb1ed6b078e5673129',1,'HanceEngine.h']]],
-  ['hancegetaudiointerleaved_6',['hanceGetAudioInterleaved',['../_hance_engine_8h.html#afb4fc749ef865dc75f9678526a2fccd8',1,'HanceEngine.h']]],
-  ['hancegetnumofpendingsamples_7',['hanceGetNumOfPendingSamples',['../_hance_engine_8h.html#a60d94cd376ed82bbb62068bff96998fa',1,'HanceEngine.h']]],
-  ['hancegetprocessorinfo_8',['hanceGetProcessorInfo',['../_hance_engine_8h.html#ae2eb49c6517178f15fe2658c33198839',1,'HanceEngine.h']]],
-  ['hanceresetprocessorstate_9',['hanceResetProcessorState',['../_hance_engine_8h.html#aee928fec73868f94d8176fd0f1d886fe',1,'HanceEngine.h']]]
+  ['hancecreatestemseparator_4',['hanceCreateStemSeparator',['../_hance_engine_8h.html#ae607d34fe1467afb90866cef11511cb0',1,'HanceEngine.h']]],
+  ['hancedeleteprocessor_5',['hanceDeleteProcessor',['../_hance_engine_8h.html#a392bbe2587d859e1551c54aba9b7f905',1,'HanceEngine.h']]],
+  ['hancegetaudio_6',['hanceGetAudio',['../_hance_engine_8h.html#a514edf661743d2bb1ed6b078e5673129',1,'HanceEngine.h']]],
+  ['hancegetaudiointerleaved_7',['hanceGetAudioInterleaved',['../_hance_engine_8h.html#afb4fc749ef865dc75f9678526a2fccd8',1,'HanceEngine.h']]],
+  ['hancegetnumofpendingsamples_8',['hanceGetNumOfPendingSamples',['../_hance_engine_8h.html#a60d94cd376ed82bbb62068bff96998fa',1,'HanceEngine.h']]],
+  ['hancegetparametervalue_9',['hanceGetParameterValue',['../_hance_engine_8h.html#aa80d000b6d2162a5e1b8e12ba5ee067a',1,'HanceEngine.h']]],
+  ['hancegetprocessorinfo_10',['hanceGetProcessorInfo',['../_hance_engine_8h.html#ae2eb49c6517178f15fe2658c33198839',1,'HanceEngine.h']]],
+  ['hanceresetprocessorstate_11',['hanceResetProcessorState',['../_hance_engine_8h.html#aee928fec73868f94d8176fd0f1d886fe',1,'HanceEngine.h']]],
+  ['hancesetparametervalue_12',['hanceSetParameterValue',['../_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a',1,'HanceEngine.h']]]
 ];
