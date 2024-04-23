@@ -27,4 +27,5 @@ Learn more and listen to examples at [HANCE.ai](https://hance.ai)
 
 ## Documentasion
 
-Please see the online API documentation on our website: [HANCE API Documentation]([https://hance.ai/contact/](https://hance.ai/docs/welcome)
+Please see the online API documentation on our website:
+[HANCE API Documentation](https://hance.ai/docs/welcome)
