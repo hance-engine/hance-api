@@ -25,7 +25,7 @@ Learn more and listen to examples at [HANCE.ai](https://hance.ai)
 - Cross-platform
 - Easy to integrate
 
-## Documentasion
+## Documentation
 
 Please see the online API documentation on our website:
 [HANCE API Documentation](https://hance.ai/docs/welcome)
