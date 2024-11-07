@@ -32,4 +32,3 @@ endif()
 
 add_subdirectory (RiffWave)
 add_subdirectory (ProcessFile)
-add_subdirectory (SeparateStems)
