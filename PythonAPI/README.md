@@ -12,9 +12,20 @@ To install the Python wrapper for HANCE, use 'pip':
 
 HANCE is compatible with Python 3 and later.
 
-## How to Use
-The HANCE Python API is a wrapper around the C++ library. Here are a few ways you can use it.
 
+## How to Use
+The HANCE Python API is a wrapper around the C++ library. 
+
+For those eager to dive in, the examples.py script in our pythonAPI GitHub repository is the perfect starting point. This script features a command-line interface that simplifies the process of experimenting with our models. You can quickly test out various audio enhancement models without writing a single line of code. Here's how to get started:
+
+First, clone or download the [examples.py](https://github.com/hance-engine/hance-api/blob/main/PythonAPI/examples.py) file from GitHub to your local machine. 
+
+Open your terminal or command prompt, and navigate to the directory where you downloaded the file
+
+Execute "python examples.py" to access the command-line interface. Follow the on-screen instructions to select and run audio enhancement models.
+
+
+## Using the API
 To use the API, import it and list the available models:
 
     import hance
@@ -26,9 +37,60 @@ To process a file with HANCE, you can use the process_file function as follows:
 
     import hance
     models = hance.list_models()
-    hance.process_file(models[0], input_file_path, output_file_path)
+    hance.process_file(models[3], input_file_path, output_file_path)
 
-This will apply the enhancement model specified by models[0] to the input file located at input_file_path, and save the enhanced audio to the output file at output_file_path. Please note that in this example, we are using PySoundFile to read and write audio files. While PySoundFile is not a requirement for using HANCE, it is a convenient library for handling audio files in Python. If you wish to use the process_file function as shown here, you will need to install PySoundFile.
+This will apply the enhancement model specified by models[3] to the input file located at input_file_path, and save the enhanced audio to the output file at output_file_path. Please note that in this example, we are using PySoundFile to read and write audio files. While PySoundFile is not a requirement for using HANCE, it is a convenient library for handling audio files in Python. If you wish to use the process_file function as shown here, you will need to install PySoundFile.
+
+## Stem Separation
+For advanced audio processing, HANCE provides stem separation features. This allows you to isolate and manipulate individual components of an audio track, such as vocals, instruments, etc.
+
+## Using StemSeparator for Advanced Stem Separation
+The StemSeparator class enables more complex stem separation tasks, using multiple models for different stems. Here’s how you can use it:
+
+    import hance
+    import soundfile as sf
+    import numpy as np
+    import os
+
+    def separate_stems(input_file_path):
+        """
+        Separates the stems from an input audio file using selected models with the StemSeparator class.
+        """
+        print("Stem separation using Hance engine with StemSeparator class.")
+        models = ['vocals_separation.hance', 'drums_separation.hance', 'piano_separation.hance', 'bass_separation.hance']
+        print("Available models for separation:")
+        for i, model in enumerate(models):
+            print(f"{i+1}. {model}")
+
+        selected_models = input("Select models to use by entering their numbers separated by commas (e.g., 1,3): ")
+        selected_models_indices = [int(index) - 1 for index in selected_models.split(',')]
+        
+        model_paths = [models[index] for index in selected_models_indices]
+
+        input_audio, sr = sf.read(input_file_path, dtype='float32')
+        if input_audio.ndim == 1:  # Mono to Stereo if needed
+            input_audio = np.tile(input_audio[:, np.newaxis], (1, 2))
+
+        sample_rate = sr
+        num_of_channels = input_audio.ndim
+
+        engine = hance.HanceEngine()
+        stem_separator = engine.StemSeparator(engine.hance_engine, model_paths, num_of_channels, sample_rate)
+        
+        separated_stems = stem_separator.process(input_audio)
+
+        path, fn = os.path.split(input_file_path)
+        for i, model_path in enumerate(model_paths):
+            stem_name = model_path.split('_')[0]
+            output_file_path = os.path.join(path, f"{fn.split('.')[0]}_{stem_name}_separated.wav")
+            sf.write(output_file_path, separated_stems[:, i*num_of_channels:(i+1)*num_of_channels], sr)
+            print(f"Stem {stem_name} saved to {output_file_path}")
+
+        print("Stem separation completed.")
+
+    separate_stems(path_to_file)
+
+This function demonstrates how to select specific models for stem separation, process an audio file to separate the stems, and save each stem as a separate audio file.
 
 ## Process a stream
 In addition to processing audio files, HANCE can also be used on audio streams in real-time. Here is an example using pyaudio to record the microphone, process it in real time, and output it to headphones.

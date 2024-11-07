@@ -11,14 +11,14 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/libHanceEngine.2.0.1.dylib</key>
+		<key>Frameworks/libHanceEngine.2.9.90.dylib</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			ImeWt4oJ52VDdYlAUCI6NsSLmA8=
+			pJBQiw6Mi/ajw2bW+HKGj5tuJX4=
 			</data>
 			<key>requirement</key>
-			<string>identifier "libHanceEngine.2" and anchor apple generic and certificate leaf[subject.CN] = 0x4170706c6520446576656c6f706d656e743a205065646572204ac3b87267656e73656e2028335a473942593655515629 and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
+			<string>identifier "libHanceEngine.2" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: Stian Aagedal (ZX3S6S894T)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>Headers/EngineAdapterObjC.h</key>
 		<dict>

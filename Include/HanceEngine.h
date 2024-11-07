@@ -141,6 +141,8 @@ extern "C"
 		int32_t numOfModelChannels;			/**< \brief The true number of channels used in the processing. The processor will
 												 automatically convert the channel format to match the model. */
 		int32_t latencyInSamples;			/**< \brief The maximum latency of the model in samples */
+		int32_t blockSize;					/**< \brief The size of the STFT blocks used by the model */
+		int32_t hopSize;					/**< \brief The size of the STFT hops used by the model */
 	} HanceProcessorInfo;
 
 	/**
@@ -249,6 +251,32 @@ extern "C"
 	 */
 	HANCE_API void hanceSetParameterValue (HanceProcessorHandle processorHandle, int32_t parameterIndex, float parameterValue);
 
+	/**
+	 * Gets the number of output busses offered by the audio processor
+	 * @param processorHandle				Handle to the audio processor
+	 * @return								The number of parameters offered
+	 */
+	HANCE_API int32_t hanceGetNumOfOutputBusses (HanceProcessorHandle processorHandle);
+
+	/**
+	 * Gets the name of a specific output buss offered by the audio processor
+	 * @param processorHandle				Handle to the audio processor
+	 * @param outputBusIndex				Index of the output bus to get the name for
+	 * @param outputBusName					Pointer to a char array that will receive the zero-terminated string.
+	 * 										Make sure the array allocated with maxLength as size
+	 * @param maxLength						The maximum number of characters to receive including zero termination
+	 */
+	HANCE_API void hanceGetOutputBusName (HanceProcessorHandle processorHandle, int32_t outputBusIndex, char* outputBusName, int32_t maxLength);
+
+	/**
+	 * Gets the value range of a specific parameter offered by the audio processor
+	 * @param processorHandle				Handle to the audio processor.
+	 * @param parameterIndex				Index of the parameter to get the name for.
+	 * @param minimumValue					Receives the minimum value for the parameter
+	 * @param maximumValue					Receives the maximum value for the parameter
+	 */
+	HANCE_API void hanceGetParameterRange (HanceProcessorHandle processorHandle, int32_t parameterIndex, float* minimumValue, float* maximumValue);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
@@ -270,10 +298,17 @@ extern "C"
 	 while settings equal or above 0.5 enables it.  */
 #define HANCE_PARAM_MASKEXTRAPOLATION		0x0003
 
+/** \brief The stem dependent linear gain values of the processing 
+     ranging from 0 and upwards. You can set individual stems by
+	 adding the output stem index to the define, so
+	 HANCE_PARAM_BUS_GAINS will be the first output stem,
+	 HANCE_PARAM_BUS_GAINS + 1 the second, and so forth. */
+#define HANCE_PARAM_BUS_GAINS				0x0100
+
 /** \brief The stem dependent sensitivities of the processing in
      percent ranging from -100% to 100%. 0% is neutral and positive
 	 values will increase the amount of reduction. You can set
-	 individual stems by adding the model index to the define, so
-	 HANCE_PARAM_MODEL_SENSITIVITIES will be the first model,
-	 HANCE_PARAM_MODEL_SENSITIVITIES + 1 the second, and so forth. */
-#define HANCE_PARAM_MODEL_SENSITIVITIES		0x1000
+	 individual stems by adding the stem index to the define, so
+	 HANCE_PARAM_BUS_SENSITIVITIES will be the first stem,
+	 HANCE_PARAM_BUS_SENSITIVITIES + 1 the second, and so forth. */
+#define HANCE_PARAM_BUS_SENSITIVITIES		0x0200

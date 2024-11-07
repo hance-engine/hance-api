@@ -20,7 +20,7 @@ using namespace std;
 
 // Some global handles that we need to close in the event of an error
 FILE* g_inputFileHandle  = nullptr;
-vector<FILE*> g_outputFileHandles;
+FILE* g_outputFileHandle = nullptr;
 HanceProcessorHandle g_processorHandle = nullptr;
 
 // A simple error handler
@@ -30,9 +30,8 @@ void handleError (string errorMessage)
 
     if (g_inputFileHandle != nullptr)
         fclose (g_inputFileHandle);
-
-    for (auto outputFileHandle : g_outputFileHandles)
-        fclose (outputFileHandle);
+    if (g_outputFileHandle != nullptr)
+        fclose (g_outputFileHandle);
     if (g_processorHandle != nullptr)
         hanceDeleteProcessor (g_processorHandle);
 
@@ -42,28 +41,33 @@ void handleError (string errorMessage)
 int main (int argc, char* argv[])
 {
     // Vector of the names of the stems to separate
+    // The "Other" stem will be created automatically as the last stem
     vector<string> stemNames    = { "vocals", "bass", "drums" };
     const int numOfModels       = (int) stemNames.size();
-
-    // You can add a license key for a pre-trained HANCE model using the hanceAddLicense method. If
-    // you don't have a license, the audio output will include the "Audio enhancement by HANCE" at
-    // irregular intervals.
-    // hanceAddLicense ("XXXX");
 
     // Parse the input arguments
     if (argc < 4) {
         cout << "Incorrect number of arguments." << endl
-             << "Usage: SeparateStems [model directory] [input filepath] [output directory]" << endl;
+             << "Usage: SeparateStems [model directory] [input filepath] [output filepath] [license key (optional)]" << endl;
         return -1;
     }
     char* modelDirectory  = argv[1];
     char* inputFilePath   = argv[2];
-    char* outputDirectory = argv[3];
+    char* outputFilePath  = argv[3];
+    
+    if (argc == 5) {
+        if (!hanceAddLicense (argv[4]))
+            handleError ("License key not accepted.");
+    }
 
     // Create file handles for audio input and output
     g_inputFileHandle = fopen (inputFilePath, "rb");
     if (g_inputFileHandle == nullptr)
         handleError ("Unable to open input file.");
+
+    g_outputFileHandle = fopen (outputFilePath, "wb");
+    if (g_outputFileHandle == nullptr)
+        handleError ("Unable to open output file.");
 
     // Parse input file
     int numOfSamplesInSource = 0;
@@ -72,41 +76,34 @@ int main (int argc, char* argv[])
     if (!parseRiffHeader (g_inputFileHandle, numOfSamplesInSource, numOfChannels, sampleRate))
         handleError ("The input file does not have a valid format.");
 
+    // Write RIFF header to output file
+    if (!writeRiffHeader (g_outputFileHandle, (int32_t) numOfSamplesInSource, numOfChannels, sampleRate))
+        handleError ("Unable to write RIFF header to output file.");
+
     vector<string> modelFilePaths;
-    
-    for (auto stemName : stemNames) {
-        modelFilePaths.push_back (modelDirectory + string ("/") + stemName + string ("_separation.hance"));
-        string outputFilePath = outputDirectory + string ("/") + stemName + string (".wav");
-        auto outputFileHandle = fopen (outputFilePath.c_str(), "wb");
-        if (outputFileHandle != nullptr) {
-            g_outputFileHandles.push_back (outputFileHandle);
-
-            // Write RIFF header to output file
-            if (!writeRiffHeader (outputFileHandle, (int32_t) numOfSamplesInSource, numOfChannels, sampleRate))
-                handleError ("Unable to write RIFF header to output file.");
-        }
-        else
-            handleError ("Unable to open output file.");
-    }
-
     vector<const char*> modelFilePathPointers;
-    for (auto&& filePath : modelFilePaths)
-        modelFilePathPointers.push_back (filePath.c_str());
+    for (auto stemName : stemNames) {
+        auto filePath = modelDirectory + string ("/") + stemName + string ("_separation.hance");
+        modelFilePaths.push_back (filePath);
+        modelFilePathPointers.push_back (modelFilePaths.back().c_str());
+    }
 
     g_processorHandle = hanceCreateStemSeparator (numOfModels, modelFilePathPointers.data(), numOfChannels, sampleRate);
     if (g_processorHandle == nullptr)
         handleError ("Unable to create the HANCE audio processor.");
 
     // Adjust the settings of the processing
-    // Maximum attenuation in dB in the range [-inf, 0]
-    hanceSetParameterValue (g_processorHandle, HANCE_PARAM_MAXATTENUATION, -196.f); 
-
     // Disable frequency band extrapolation for the mask
     hanceSetParameterValue (g_processorHandle, HANCE_PARAM_MASKEXTRAPOLATION, 0.f); 
 
-    for (int modelIndex = 0; modelIndex < numOfModels; modelIndex++)
+    // The "Other" stem is created from 
+    for (int stemIndex = 0; stemIndex <= numOfModels; stemIndex++) {
+        // Linear gain - we isolate the first stem in this example
+        hanceSetParameterValue (g_processorHandle, HANCE_PARAM_BUS_GAINS + stemIndex, stemIndex == 0 ? 1.f : 0.f);
+
         // Sensitivity of the detection in % in the range [-100, 100] with 0% being neutral.
-        hanceSetParameterValue (g_processorHandle, HANCE_PARAM_MODEL_SENSITIVITIES + modelIndex, 0.f);
+        hanceSetParameterValue (g_processorHandle, HANCE_PARAM_BUS_SENSITIVITIES + stemIndex, 0.f);
+    }
 
     // Start processing loop
     cout << "Starting processing:" << endl;
@@ -140,31 +137,13 @@ int main (int argc, char* argv[])
 
         // Fetch and save the audio to file if there's anything ready
         if (numOfSamplesToWrite > 0) {
-            vector<float> processedBuffer (numOfModels * numOfChannels * numOfSamplesToWrite);
+            vector<float> processedBuffer (numOfChannels * numOfSamplesToWrite);
             if (!hanceGetAudioInterleaved (g_processorHandle, processedBuffer.data(), numOfSamplesToWrite))
                 handleError ("Unable to get audio from the HANCE audio processor.");
 
-            vector<float> stemBuffer (numOfChannels * numOfSamplesToWrite);
-
-            auto stemBufferPtr      = stemBuffer.data();
-            auto processedBufferPtr = processedBuffer.data();
-            int stemChannelOffset   = 0;
-
-            for (auto outputFileHandle : g_outputFileHandles) {
-
-                // Copy stem audio data from processed buffer
-                for (int sampleIndex = 0; sampleIndex < numOfSamplesToWrite; sampleIndex++) {
-                    for (int channelIndex = 0; channelIndex < numOfChannels; channelIndex++) {
-                        stemBufferPtr[sampleIndex * numOfChannels + channelIndex] =
-                            processedBufferPtr[sampleIndex * numOfChannels * numOfModels + stemChannelOffset + channelIndex];
-                    }
-                }
-
                 // Write audio to file
-                if (!writeRiffAudio (outputFileHandle, stemBufferPtr, (int32_t) stemBuffer.size()))
-                    handleError ("Unable to write audio to the output file.");
-                stemChannelOffset += numOfChannels;
-            }
+            if (!writeRiffAudio (g_outputFileHandle, processedBuffer.data(), (int32_t) processedBuffer.size()))
+                handleError ("Unable to write audio to the output file.");
             numOfSamplesWritten += numOfSamplesToWrite;
         }
         cout << ".";
@@ -173,8 +152,7 @@ int main (int argc, char* argv[])
 
     // Close the file handles and delete the HANCE processor
     fclose (g_inputFileHandle);
-    for (auto outputFileHandle : g_outputFileHandles)
-        fclose (outputFileHandle);
+    fclose (g_outputFileHandle);
     hanceDeleteProcessor (g_processorHandle);
 
     return 0;

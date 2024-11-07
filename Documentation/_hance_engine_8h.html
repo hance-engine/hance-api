@@ -94,9 +94,12 @@ Macros</h2></td></tr>
 <tr class="memdesc:a2a67f55deda131a4dd118c8604a13e16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables or disables mask frequency extrapolation. When using models that aren't trained on the full frequency band, this setting determines if the output audio should be band-limited to the frequency range of the model or if the high-frequency masks should be extrapolated. Settings below 0.5 disables the extrapolaion while settings equal or above 0.5 enables it. <br  />
   <a href="_hance_engine_8h.html#a2a67f55deda131a4dd118c8604a13e16">More...</a><br /></td></tr>
 <tr class="separator:a2a67f55deda131a4dd118c8604a13e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a157eb05448251e151aa8b90d1a57a2ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a157eb05448251e151aa8b90d1a57a2ef">HANCE_PARAM_MODEL_SENSITIVITIES</a>&#160;&#160;&#160;0x1000</td></tr>
-<tr class="memdesc:a157eb05448251e151aa8b90d1a57a2ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The stem dependent sensitivities of the processing in percent ranging from -100% to 100%. 0% is neutral and positive values will increase the amount of reduction. You can set individual stems by adding the model index to the define, so HANCE_PARAM_MODEL_SENSITIVITIES will be the first model, HANCE_PARAM_MODEL_SENSITIVITIES + 1 the second, and so forth.  <a href="_hance_engine_8h.html#a157eb05448251e151aa8b90d1a57a2ef">More...</a><br /></td></tr>
-<tr class="separator:a157eb05448251e151aa8b90d1a57a2ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb0167d9ebb057dab28c8ccfde91ee1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#adb0167d9ebb057dab28c8ccfde91ee1f">HANCE_PARAM_BUS_GAINS</a>&#160;&#160;&#160;0x0100</td></tr>
+<tr class="memdesc:adb0167d9ebb057dab28c8ccfde91ee1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The stem dependent linear gain values of the processing ranging from 0 and upwards. You can set individual stems by adding the output stem index to the define, so HANCE_PARAM_BUS_GAINS will be the first output stem, HANCE_PARAM_BUS_GAINS + 1 the second, and so forth.  <a href="_hance_engine_8h.html#adb0167d9ebb057dab28c8ccfde91ee1f">More...</a><br /></td></tr>
+<tr class="separator:adb0167d9ebb057dab28c8ccfde91ee1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e052900e5cdb3d6f8e4ccc4fac3460b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a6e052900e5cdb3d6f8e4ccc4fac3460b">HANCE_PARAM_BUS_SENSITIVITIES</a>&#160;&#160;&#160;0x0200</td></tr>
+<tr class="memdesc:a6e052900e5cdb3d6f8e4ccc4fac3460b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The stem dependent sensitivities of the processing in percent ranging from -100% to 100%. 0% is neutral and positive values will increase the amount of reduction. You can set individual stems by adding the stem index to the define, so HANCE_PARAM_BUS_SENSITIVITIES will be the first stem, HANCE_PARAM_BUS_SENSITIVITIES + 1 the second, and so forth.  <a href="_hance_engine_8h.html#a6e052900e5cdb3d6f8e4ccc4fac3460b">More...</a><br /></td></tr>
+<tr class="separator:a6e052900e5cdb3d6f8e4ccc4fac3460b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -133,8 +136,46 @@ Functions</h2></td></tr>
 <tr class="separator:aa80d000b6d2162a5e1b8e12ba5ee067a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b4ad8ba51f91a018a70ac1adabe877a"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a">hanceSetParameterValue</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle, int32_t parameterIndex, float parameterValue)</td></tr>
 <tr class="separator:a9b4ad8ba51f91a018a70ac1adabe877a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55d829fc88d2a511060804ae5f3878d7"><td class="memItemLeft" align="right" valign="top">HANCE_API int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a55d829fc88d2a511060804ae5f3878d7">hanceGetNumOfOutputBusses</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle)</td></tr>
+<tr class="separator:a55d829fc88d2a511060804ae5f3878d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77bcc8725c0c24ccde5e13c3c6da921a"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a77bcc8725c0c24ccde5e13c3c6da921a">hanceGetOutputBusName</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle, int32_t outputBusIndex, char *outputBusName, int32_t maxLength)</td></tr>
+<tr class="separator:a77bcc8725c0c24ccde5e13c3c6da921a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aade14d7527accc7ee8dffe00971b2642"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#aade14d7527accc7ee8dffe00971b2642">hanceGetParameterRange</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle, int32_t parameterIndex, float *minimumValue, float *maximumValue)</td></tr>
+<tr class="separator:aade14d7527accc7ee8dffe00971b2642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="adb0167d9ebb057dab28c8ccfde91ee1f" name="adb0167d9ebb057dab28c8ccfde91ee1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb0167d9ebb057dab28c8ccfde91ee1f">&#9670;&nbsp;</a></span>HANCE_PARAM_BUS_GAINS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HANCE_PARAM_BUS_GAINS&#160;&#160;&#160;0x0100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The stem dependent linear gain values of the processing ranging from 0 and upwards. You can set individual stems by adding the output stem index to the define, so HANCE_PARAM_BUS_GAINS will be the first output stem, HANCE_PARAM_BUS_GAINS + 1 the second, and so forth. </p>
+
+</div>
+</div>
+<a id="a6e052900e5cdb3d6f8e4ccc4fac3460b" name="a6e052900e5cdb3d6f8e4ccc4fac3460b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e052900e5cdb3d6f8e4ccc4fac3460b">&#9670;&nbsp;</a></span>HANCE_PARAM_BUS_SENSITIVITIES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HANCE_PARAM_BUS_SENSITIVITIES&#160;&#160;&#160;0x0200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The stem dependent sensitivities of the processing in percent ranging from -100% to 100%. 0% is neutral and positive values will increase the amount of reduction. You can set individual stems by adding the stem index to the define, so HANCE_PARAM_BUS_SENSITIVITIES will be the first stem, HANCE_PARAM_BUS_SENSITIVITIES + 1 the second, and so forth. </p>
+
+</div>
+</div>
 <a id="a2a67f55deda131a4dd118c8604a13e16" name="a2a67f55deda131a4dd118c8604a13e16"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a67f55deda131a4dd118c8604a13e16">&#9670;&nbsp;</a></span>HANCE_PARAM_MASKEXTRAPOLATION</h2>
 
@@ -165,22 +206,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The maximum attenuation of the unwanted signal in dB. The valid value range is &lt;-inf, 0]. </p>
-
-</div>
-</div>
-<a id="a157eb05448251e151aa8b90d1a57a2ef" name="a157eb05448251e151aa8b90d1a57a2ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a157eb05448251e151aa8b90d1a57a2ef">&#9670;&nbsp;</a></span>HANCE_PARAM_MODEL_SENSITIVITIES</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define HANCE_PARAM_MODEL_SENSITIVITIES&#160;&#160;&#160;0x1000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The stem dependent sensitivities of the processing in percent ranging from -100% to 100%. 0% is neutral and positive values will increase the amount of reduction. You can set individual stems by adding the model index to the define, so HANCE_PARAM_MODEL_SENSITIVITIES will be the first model, HANCE_PARAM_MODEL_SENSITIVITIES + 1 the second, and so forth. </p>
 
 </div>
 </div>
@@ -541,6 +566,31 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a55d829fc88d2a511060804ae5f3878d7" name="a55d829fc88d2a511060804ae5f3878d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55d829fc88d2a511060804ae5f3878d7">&#9670;&nbsp;</a></span>hanceGetNumOfOutputBusses()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANCE_API int32_t hanceGetNumOfOutputBusses </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a>&#160;</td>
+          <td class="paramname"><em>processorHandle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Gets the number of output busses offered by the audio processor </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">processorHandle</td><td>Handle to the audio processor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of parameters offered </dd></dl>
+
+</div>
+</div>
 <a id="a60d94cd376ed82bbb62068bff96998fa" name="a60d94cd376ed82bbb62068bff96998fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a60d94cd376ed82bbb62068bff96998fa">&#9670;&nbsp;</a></span>hanceGetNumOfPendingSamples()</h2>
 
@@ -563,6 +613,104 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of completed samples. </dd></dl>
+
+</div>
+</div>
+<a id="a77bcc8725c0c24ccde5e13c3c6da921a" name="a77bcc8725c0c24ccde5e13c3c6da921a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77bcc8725c0c24ccde5e13c3c6da921a">&#9670;&nbsp;</a></span>hanceGetOutputBusName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANCE_API void hanceGetOutputBusName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a>&#160;</td>
+          <td class="paramname"><em>processorHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>outputBusIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>outputBusName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>maxLength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Gets the name of a specific output buss offered by the audio processor </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">processorHandle</td><td>Handle to the audio processor </td></tr>
+    <tr><td class="paramname">outputBusIndex</td><td>Index of the output bus to get the name for </td></tr>
+    <tr><td class="paramname">outputBusName</td><td>Pointer to a char array that will receive the zero-terminated string. Make sure the array allocated with maxLength as size </td></tr>
+    <tr><td class="paramname">maxLength</td><td>The maximum number of characters to receive including zero termination </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aade14d7527accc7ee8dffe00971b2642" name="aade14d7527accc7ee8dffe00971b2642"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aade14d7527accc7ee8dffe00971b2642">&#9670;&nbsp;</a></span>hanceGetParameterRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANCE_API void hanceGetParameterRange </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a>&#160;</td>
+          <td class="paramname"><em>processorHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>parameterIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>minimumValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>maximumValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Gets the value range of a specific parameter offered by the audio processor </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">processorHandle</td><td>Handle to the audio processor. </td></tr>
+    <tr><td class="paramname">parameterIndex</td><td>Index of the parameter to get the name for. </td></tr>
+    <tr><td class="paramname">minimumValue</td><td>Receives the minimum value for the parameter </td></tr>
+    <tr><td class="paramname">maximumValue</td><td>Receives the maximum value for the parameter </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

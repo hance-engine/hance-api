@@ -1,9 +1,12 @@
-cmake_minimum_required (VERSION 3.15)
-project (HanceExamples VERSION 2.0.1)
+cmake_minimum_required (VERSION 3.22)
+
+set_property (GLOBAL PROPERTY USE_FOLDERS ON)
+
+include ("../HanceVersion.txt")
+project (HanceExamples VERSION ${HANCE_VERSION})
 
 set (CMAKE_CXX_STANDARD 11)
 
-set_property (GLOBAL PROPERTY USE_FOLDERS ON)
 add_library (hance-engine SHARED IMPORTED)
 
 if (MSVC)
@@ -13,11 +16,14 @@ if (MSVC)
     IMPORTED_LOCATION "${HANCE_DLL}"
     INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/../Include")
 else()
-  set (HANCE_TARGET_DIR "/usr/local/lib/")
   if (APPLE)
     set (HANCE_DLL "${CMAKE_SOURCE_DIR}/../Bin/macOS/libHanceEngine.dylib")
   else()
-    set (HANCE_DLL "${CMAKE_SOURCE_DIR}/../Bin/Linux/libHanceEngine.so")
+    if (${CMAKE_SYSTEM_PROCESSOR} MATCHES "aarch64")
+      set (HANCE_DLL "${CMAKE_SOURCE_DIR}/../Bin/Linux_arm64/libHanceEngine.so")
+    else()
+      set (HANCE_DLL "${CMAKE_SOURCE_DIR}/../Bin/Linux_x64/libHanceEngine.so")
+    endif()
   endif()
   set_target_properties (hance-engine PROPERTIES
     IMPORTED_LOCATION "${HANCE_DLL}"
