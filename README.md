@@ -18,7 +18,7 @@ The easiest way to try out the HANCE Engine is to use the HANCE Model Player and
 To use the AU component on Mac, copy the HANCEModelPlayer.component file to `/Library/Audio/Plug-Ins/Components`. On Windows, simply run the installer.
 
 ### Using Python
-The Python API makes it easy to install and test our models in your own prototypes.
+Will be available soon.
 
 ## Multiplatform
 The HANCE Engine supports a wide range of platforms from embedded systems to
