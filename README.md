@@ -11,14 +11,14 @@ https://github.com/hance-engine/hance-api/assets/3242951/b8c06232-1633-49cf-b30e
 ## Trying out the HANCE Engine
 
 ### Using the HANCE Model Player
-The easiest way to try out the HANCE Engine is to use the HANCE Model Player and load one of the models from the Models subdirectory in the repository:
+The easiest way to try out the HANCE Engine is to use the HANCE Model Player and load one of the models from the [Models](Models) subdirectory in the repository:
 - [HANCE Model Player (Mac - AU)](https://143687363.fs1.hubspotusercontent-eu1.net/hubfs/143687363/HANCEModelPlayer.component.zip)
 - [HANCE Model Player (Windows 64 bit - VST3)](https://143687363.fs1.hubspotusercontent-eu1.net/hubfs/143687363/HanceModelPlayer_Win64_2_9_90.exe)
 
 To use the AU component on Mac, copy the HANCEModelPlayer.component file to `/Library/Audio/Plug-Ins/Components`. On Windows, simply run the installer.
 
 ### Using Python
-Will be available soon.
+See documentation [here](PythonAPI/README.md) for instructions to test with python.
 
 ## Multiplatform
 The HANCE Engine supports a wide range of platforms from embedded systems to
