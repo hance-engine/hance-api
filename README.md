@@ -11,14 +11,16 @@ https://github.com/hance-engine/hance-api/assets/3242951/b8c06232-1633-49cf-b30e
 ## Trying out the HANCE Engine
 
 ### Using the HANCE Model Player
-The easiest way to try out the HANCE Engine is to use the HANCE Model Player and load one of the models from the Models subdirectory in the repository:
-- [HANCE Model Player (Mac - AU)](https://143687363.fs1.hubspotusercontent-eu1.net/hubfs/143687363/HANCEModelPlayer.component.zip)
-- [HANCE Model Player (Windows 64 bit - VST3)](https://143687363.fs1.hubspotusercontent-eu1.net/hubfs/143687363/HanceModelPlayer_Win64_2_9_90.exe)
+The easiest way to try out the HANCE Engine is to use the HANCE Model Player and load one of the models from the [Models](Models) subdirectory in this repository. This allows you to adjust the parameters of the model in real-time, so that you can optimize these parameters for your use case.
 
-To use the AU component on Mac, copy the HANCEModelPlayer.component file to `/Library/Audio/Plug-Ins/Components`. On Windows, simply run the installer.
+The HANCE model player is available for MacOS and Windows, and installers can be found [here](https://hance.ai/downloads). The model player is an audio plugin (AudioUnit for MacOS, VST3 for Windows), that can be used in the audio editing software of your choice for testing.
 
 ### Using Python
-Will be available soon.
+See documentation [here](PythonAPI/README.md) for instructions to test with python.
+
+
+### Models
+The models in the [Models](Models) folder have semantic names. For example, [speech-denoise-48kHz-32ms.hance](Models/speech-denoise-48kHz-32ms.hance), signifies that this is a model that _denoises_ speech, expects an input samplerate of 48kHz, and has a latency of 32ms. For product information, take a look at [this page](https://hance.ai/products)
 
 ## Multiplatform
 The HANCE Engine supports a wide range of platforms from embedded systems to
@@ -29,7 +31,6 @@ platforms.
 - Windows 32 and 64 bit (Intel / AMD)
 - Linux (Intel / AMD and ARM64)
 - Mac / iOS (Intel and ARM64)
-- WebAssembly (WASM)
 
 Learn more and listen to examples at [HANCE.ai](https://hance.ai)
 
@@ -46,5 +47,4 @@ Learn more and listen to examples at [HANCE.ai](https://hance.ai)
 
 ## Documentation
 
-Please see the online API documentation on our website:
-[HANCE API Documentation](https://hance.ai/docs/welcome)
+Please see the online API documentation here for integrating with HANCE Engine: [https://hance-engine.github.io/hance-api/Documentation/](https://hance-engine.github.io/hance-api/Documentation/)
