@@ -22,6 +22,8 @@ See documentation [here](PythonAPI/README.md) for instructions to test with pyth
 ### Models
 The models in the [Models](Models) folder have semantic names. For example, [speech-denoise-48kHz-32ms.hance](Models/speech-denoise-48kHz-32ms.hance), signifies that this is a model that _denoises_ speech, expects an input samplerate of 48kHz, and has a latency of 32ms. For product information, take a look at [this page](https://hance.ai/products)
 
+All models within a family, e.g. the speech-denoise family, have similar characteristics. For denoising purposes, we recommend starting with [speech-denoise-48kHz-32ms-tiny.hance](Models/speech-denoise-48kHz-32ms-tiny.hance) to see if that meets your requirements, and move up in size if needed. We also note that if you have special requirements for particular audio circumstances, we offer can build models to better suit those circumstances. Contact us if this is the case.
+
 ## Multiplatform
 The HANCE Engine supports a wide range of platforms from embedded systems to
 browser-based processing with WebAssembly. The use of vector arithmetic through
