@@ -47,4 +47,4 @@ Learn more and listen to examples at [HANCE.ai](https://hance.ai)
 
 ## Documentation
 
-Please see the online API documentation here for integrating with HANCE Engine: [https://hance-engine.github.io/hance-api/Documentation/](https://hance-engine.github.io/hance-api/Documentation/){:target="_blank"}
+Please see the online API documentation here for integrating with HANCE Engine: [https://hance-engine.github.io/hance-api/Documentation/](https://hance-engine.github.io/hance-api/Documentation/)
