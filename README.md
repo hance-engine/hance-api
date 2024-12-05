@@ -11,12 +11,16 @@ https://github.com/hance-engine/hance-api/assets/3242951/b8c06232-1633-49cf-b30e
 ## Trying out the HANCE Engine
 
 ### Using the HANCE Model Player
-The easiest way to try out the HANCE Engine is to use the HANCE Model Player and load one of the models from the [Models](Models) subdirectory in the repository. This allows you to adjust the parameters of the model in real-time, so that you can optimize these parameters for your use case.
+The easiest way to try out the HANCE Engine is to use the HANCE Model Player and load one of the models from the [Models](Models) subdirectory in this repository. This allows you to adjust the parameters of the model in real-time, so that you can optimize these parameters for your use case.
 
 The HANCE model player is available for MacOS and Windows, and installers can be found [here](https://hance.ai/downloads). The model player is an audio plugin (AudioUnit for MacOS, VST3 for Windows), that can be used in the audio editing software of your choice for testing.
 
 ### Using Python
 See documentation [here](PythonAPI/README.md) for instructions to test with python.
+
+
+### Models
+The models in the [Models](Models) folder have semantic names. For example, [speech-denoise-48kHz-32ms.hance](Models/speech-denoise-48kHz-32ms.hance), signifies that this is a model that _denoises_ speech, expects an input samplerate of 48kHz, and has a latency of 32ms. For product information, take a look at [this page](https://hance.ai/products)
 
 ## Multiplatform
 The HANCE Engine supports a wide range of platforms from embedded systems to
