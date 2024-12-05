@@ -31,7 +31,6 @@ platforms.
 - Windows 32 and 64 bit (Intel / AMD)
 - Linux (Intel / AMD and ARM64)
 - Mac / iOS (Intel and ARM64)
-- WebAssembly (WASM)
 
 Learn more and listen to examples at [HANCE.ai](https://hance.ai)
 
@@ -48,5 +47,4 @@ Learn more and listen to examples at [HANCE.ai](https://hance.ai)
 
 ## Documentation
 
-Please see the online API documentation on our website:
-[HANCE API Documentation](https://hance.ai/docs/welcome)
+Please see the online API documentation here for integrating with HANCE Engine: [https://hance-engine.github.io/hance-api/Documentation/](https://hance-engine.github.io/hance-api/Documentation/)
