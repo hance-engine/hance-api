@@ -1,12 +1,12 @@
 # Audio Enhancement in Python with HANCE
 
-**HANCE** is a state-of-the-art audio enhancement company offering models that deliver real-time processing, with latencies as low as 20ms, even on low-power processors. Our models are designed to be ultra-lightweight, with the smallest model being 242KB, while still providing fantastic performance. We also train custom models on request. The HANCE engine is built in C++ and is compatible across various architectures. With our Python wrapper, you can easily integrate HANCE into your Python projects and quickly process files and benchmark our models.
+The **HANCE** Engine is a model inference library built with audio in mind. A large set of pre-trained models ranging from speech noise supression and de-reverberation to stem separation and recovery of missing frequency content are available.
 
-If you're looking for a way to quickly test our models, we recommend either:
+Our models are trained specifically for real-time usage, achieving low latencies down to 20 milliseconds in speech enhancement applications. Furthermore, the models are designed to be small and resource-efficient, with model file sizes down to 242 KB for the smallest noise suppression model.
 
-- [HANCE Model Player (Mac - AU)](https://github.com/hance-engine/hance-api/tree/hance3-beta?tab=readme-ov-file#:~:text=HANCE%20Model%20Player%20(Mac%20%2D%20AU) 
-- [HANCE Model Player (Windows 64 bit - VST3)](https://143687363.fs1.hubspotusercontent-eu1.net/hubfs/143687363/HanceModelPlayer_Win64_2_9_90.exe)
+The HANCE engine is built in C++ and is compatible across various architectures. With our Python wrapper, you can easily integrate HANCE into your Python projects and quickly process files and benchmark our models.
 
+If you're looking for a way to quickly test our models, we recommend downloading the [HANCE Model Player for Mac and Windows](https://hance.ai/downloads)
 
 To learn more about HANCE, visit [Hance.ai](https://hance.ai).
 
@@ -35,6 +35,11 @@ To use the API, import it and list the available models:
     import hance
     models = hance.list_models()
     print(models)
+
+
+To download and update to the latest models, simply call:
+    
+    hance.update_models()
 
 ## Process a File
 
@@ -72,6 +77,11 @@ To process a file with HANCE, you can use the `process_file` function as follows
     )
 
 This will apply the enhancement model specified by `models[0]` to the input file located at `input_file_path`, and save the enhanced audio to the output file at `output_file_path`. 
+
+### Models
+The models in the models folder have semantic names. For example, speech-denoise-48kHz-32ms.hance, signifies that this is a model that _denoises_ speech, expects an input samplerate of 48kHz, and has a latency of 32ms. For product information, take a look at [this page](https://hance.ai/products)
+
+All models within a family, e.g. the speech-denoise family, have similar characteristics. For denoising purposes, we recommend starting with speech-denoise-48kHz-32ms-tiny.hance to see if that meets your requirements, and move up in size if needed. We also note that if you have special requirements for particular audio circumstances, we offer can build models to better suit those circumstances. Contact us if this is the case.
 
 Please note that hance.process_file is using PySoundFile to read and write audio files. While PySoundFile is not a requirement for using HANCE, it is a convenient library for handling audio files in Python.
 

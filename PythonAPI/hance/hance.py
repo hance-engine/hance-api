@@ -401,6 +401,60 @@ def list_models():
     return model_list
 
 
+def update_models():
+    """
+    Updates the local models directory by downloading the latest public branch archive
+    from the HANCE models GitHub repository using urllib.
+    """
+    import urllib.request
+    import zipfile
+    import io
+    import os
+
+    repo_url = "https://github.com/hance-engine/hance-api/archive/refs/heads/main.zip"  # Update with the latest public branch URL if different
+    models_dir = os.path.abspath(MODEL_PATH)  # Absolute path to the local Models directory
+    
+    print("Downloading the latest models archive...")
+    try:
+        # Download the repository archive
+        with urllib.request.urlopen(repo_url) as response:
+            if response.status != 200:
+                raise Exception(f"Failed to download archive: HTTP {response.status}")
+            
+            # Read the archive into memory
+            archive_data = response.read()
+        
+        # Extract the downloaded archive
+        with zipfile.ZipFile(io.BytesIO(archive_data)) as z:
+            extracted_base = z.namelist()[0]  # First directory in the archive
+            extracted_models_prefix = os.path.join(extracted_base, "Models")
+
+            if not os.path.exists(models_dir):
+                os.makedirs(models_dir)
+
+            # Extract only the contents of the Models directory
+            for file in z.namelist():
+                if file.startswith(extracted_models_prefix):
+                    # Compute the relative path inside the Models folder
+                    relative_path = os.path.relpath(file, extracted_models_prefix)
+                    if relative_path == ".":  # Skip the root directory itself
+                        continue
+                    
+                    # Compute the target path
+                    target_path = os.path.join(models_dir, relative_path)
+
+                    # Create directories or write files as needed
+                    if file.endswith('/'):
+                        os.makedirs(target_path, exist_ok=True)  # Create directories
+                    else:
+                        with open(target_path, "wb") as f:
+                            f.write(z.read(file))
+
+        print(f"Models updated successfully at {models_dir}.")
+    except Exception as e:
+        print(f"Error updating models: {e}")
+        raise
+
 def get_model_file_abs_path(model_file_path: str):
     model_file_abs_path = model_file_path
     if not os.path.exists(model_file_abs_path):
