@@ -93,7 +93,7 @@ int main (int argc, char* argv[])
     cout << " - sample rate:        " << processorInfo.sampleRate << " Hz" << endl << endl;
 
     // Print output bus information
-    int numOfOutputBusses           = hanceGetNumOfOutputBusses (g_processorHandle);
+    int numOfOutputBusses = hanceGetNumOfOutputBusses (g_processorHandle);
     cout << "Output busses:" << endl;
 
     // Here's a set of output busses we'd like to include in the output. Other buses will

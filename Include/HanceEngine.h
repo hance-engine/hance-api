@@ -14,19 +14,18 @@ a written permission from HANCE AS.
 * powerful algorithms and processing capabilities from all languages that offer bindings for
 * standard C compatible libraries. The HANCE Audio Engine is a light-weight and cross-platform
 * library, and it should be very easy to integrate it into your application. The library can
-* load pre-trained AI models and use these for audio processing to perform various tasks such
-* as noise reduction and de-reverberation.
+* load pre-trained AI models and use these for audio processing to perform various tasks.
 *
-* The HANCE Audio Engine is delivered with general purpose models for noise reduction and
-* de-reverberation. These are designed to meet common requirements in terms of latency and
-* CPU usage. However, we can train custom models for lower latencies or less CPU usage
-* at the cost of separation quality. Please [contact us](https://hance.ai/contact) for more
+* The HANCE Audio Engine is delivered with general purpose models for noise reduction,
+* de-reverberation and stem separation. These are designed to meet common requirements
+* in terms of latency and CPU usage. However, we can train custom models for specific
+* customer requirements. Please [contact us](https://hance.ai/contact) for more
 * information.
 * 
 * \section intro_sec Getting Started
 * The HANCE API is designed to be as simple as possible. The **ProcessFile** example (see the
 * **Examples** folder in the API) illustrates how to create a HANCE processor and process audio
-* with it. [CMake 3.0](https://cmake.org/) or later is required to build the example. To build
+* with it. [CMake 3.22](https://cmake.org/) or later is required to build the example. To build
 * **ProcessFile**, open the terminal / command line prompt and locate the Examples/ProcessFile
 * subfolder in the HANCE API. Now, please type "./Build.sh" on Mac or Linux, or "Build.bat" on Windows. 
 *
@@ -78,19 +77,52 @@ a written permission from HANCE AS.
 * hanceDeleteProcessor (processorHandle);
 * ```
 *
- * \section Performance Considerations
- *
- * The HANCE Audio Engine is a light-weight and cross-platform library, and it uses either of the
- * following libraries for vector arithmetic if available:
- * - Intel Performance Primitives
- * - Apple vDSP
- * 
- * The HANCE Audio Engine reverts to pure C++ when no compatible vector arithmetic library is available.
- *
- * Copyright (c) 2023 HANCE AS.
- * 
- * @file HanceEngine.h
- */
+* \section Output Busses and Parameter Settings
+*
+* HANCE Engine models typically have two or more output busses that can be mixed together with
+* adjustable gain and sensitivity settings. A typical noise or reverb reduction model will have
+* clean speech as one output and noise or reverb as the second output bus. Stem separation models
+* will have a separate output bus for each stem.
+*
+* You can query the number of output busses that a model offers using hanceGetNumOfOutputBusses:
+* ```
+* int numOfOutputBusses = hanceGetNumOfOutputBusses (g_processorHandle);
+* ```
+*
+* Furthermore, you can query the names of the individual output busses using the bus index
+* ranging from 0 to the number of output busses minus one:
+* ```
+* vector<char> nameBuffer (255, '\0');
+* hanceGetOutputBusName (g_processorHandle, busIndex, (char*) nameBuffer.data(), nameBuffer.size());
+* string outputBusName = nameBuffer.data();
+* ```
+*
+* You can set and get the gain or sensitivity of an output bus using hanceSetParameterValue or
+* hanceGetParameterValue. Parameters are assigned to IDs and the parameter ID for the linear gain
+* of the first output bus is HANCE_PARAM_BUS_GAINS. For the second output bus, the ID is
+* HANCE_PARAM_BUS_GAINS + 1 and so forth.
+*
+* The sensitivities are handled identically with ID of the sensitivity for the first output bus
+* being HANCE_PARAM_BUS_SENSITIVITIES. Here's how to set the gain of the bus specified by busIndex
+* to 1.f (no change in gain):
+* ```
+* hanceSetParameterValue (g_processorHandle, HANCE_PARAM_BUS_GAINS + busIndex, 1.f);
+* ```
+*
+* \section Performance Considerations
+*
+* The HANCE Audio Engine is a light-weight and cross-platform library, and it can use the
+* following libraries for vector arithmetic if available:
+* - Intel Performance Primitives
+* - Apple vDSP
+* - NEON Intrinsics
+* 
+* The HANCE Audio Engine reverts to pure C++ when no compatible vector arithmetic library is available.
+*
+* Copyright (c) 2024 HANCE AS.
+* 
+* @file HanceEngine.h
+*/
 
 #include <inttypes.h>
 #include <stdbool.h>

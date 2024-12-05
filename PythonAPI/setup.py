@@ -13,11 +13,11 @@ if not os.path.exists(os.path.join("hance", "bin")):
 
     base_path = os.path.abspath(os.path.dirname(__file__))
     up_one_folder = os.path.split(base_path)[0]
-    # up_two_folders = os.path.split(up_one_folder)[0]
+    up_two_folders = os.path.split(up_one_folder)[0]
 
-    shutil.copytree(os.path.join(up_one_folder, "Bin"), os.path.join(base_path, "hance", "bin"))
+    shutil.copytree(os.path.join(up_two_folders, "Bin"), os.path.join(base_path, "hance", "bin"))
     shutil.copytree(
-        os.path.join(up_one_folder, "Models"), os.path.join(base_path, "hance", "models")
+        os.path.join(up_two_folders, "Models"), os.path.join(base_path, "hance", "models")
     )
 
 
@@ -92,7 +92,7 @@ def get_package_data_list():
     elif system_name == "Darwin":
         files_to_include.append(os.path.join(bin_path, "macOS", "libHanceEngine.dylib"))
     elif system_name == "Linux":
-        files_to_include.append(os.path.join(bin_path, "Linux", "libHanceEngine.so"))
+        files_to_include.append(os.path.join(bin_path, "Linux_x64", "libHanceEngine.so"))
 
     if not files_to_include:
         raise Exception(

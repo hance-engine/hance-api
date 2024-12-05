@@ -2,241 +2,117 @@
 Examples on using the Hance engine.
 """
 
+import os
+import hance
+
+# Check for required modules and prompt to install if missing
 try:
     import numpy as np
 except ImportError:
-    print("Numpy is not installed. Please install it to run this example using the command:")
+    print("NumPy is not installed. Please install it using the command:")
     print("pip install numpy")
-    print("The HANCE engine can be used without numpy, but this example requires it.")
     exit()
 
 try:
     import soundfile as sf
 except ImportError:
-    print("Soundfile is not installed. Please install it to run this example using the command:")
-    print("pip install Soundfile")
-    print("The HANCE engine can be used without Soundfile, but this example requires it.")
+    print("SoundFile is not installed. Please install it using the command:")
+    print("pip install soundfile")
     exit()
 
-import os
-import threading
+def main():
+    print("Remove noise from voice recordings or separate stems in mixes using Hance.")
+    # Get input file from user
+    input_file_path = input("Enter the path to your input audio file: ").strip()
+    
+    # Remove leading and trailing quotes if present
+    if input_file_path.startswith('"') and input_file_path.endswith('"'):
+        input_file_path = input_file_path[1:-1]
+    elif input_file_path.startswith("'") and input_file_path.endswith("'"):
+        input_file_path = input_file_path[1:-1]
 
-import hance
+    # Replace escaped spaces with regular spaces
+    input_file_path = input_file_path.replace("\\ ", " ")
 
+    if not os.path.exists(input_file_path):
+        print("Input file does not exist.")
+        return
 
-def process_file(input_file_path, output_file_path):
-    # Process a full wav file
-
-    models = ["speech-denoise.hance", "speech-dereverb.hance"]
-    print("Available models:")
-    for i, model in enumerate(models):
-        print(f"{i+1}. {model}")
-
-    model_num = int(input("Select a model to use by entering its number: ")) - 1
-
-    print("Using model: ", models[model_num])
-    hance.process_file(models[model_num], input_file_path, output_file_path)
-    print("File successfully processed")
-    print("Output file: ", output_file_path)
-
-
-def process_microphone():
-    """
-    Captures the input of your microphone, process it in realtime
-    and ouputs it to an output device.
-    """
-    import pyaudio
-
-    engine = hance.HanceEngine()
-    p = pyaudio.PyAudio()
-
-    FORMAT = pyaudio.paFloat32
-    CHANNELS = 1
-    RATE = 44100
-    CHUNK = 512
-
-    print("\nRecord audio from a microphone and process it in realtime with HANCE.")
-    print(
-        "PyAudio will induce some latency with the roundtrip to the soundcard,\nbut the HANCE engine runs in realtime."
-    )
-    print("")
-
-    # Get a list of available input devices
-    input_devices = []
-    for i in range(p.get_device_count()):
-        device_info = p.get_device_info_by_index(i)
-        if device_info["maxInputChannels"] > 0:
-            input_devices.append(device_info)
-
-    # Print the list of available input devices and ask the user to select one
-    print("Available input devices:")
-    for i, device in enumerate(input_devices):
-        print(f"{i}: {device['name']}")
-    input_device_index = int(input("\nSelect an input device by entering its number: "))
-    input_device_info = input_devices[input_device_index]
-
-    # Get a list of available output devices
-    output_devices = []
-    for i in range(p.get_device_count()):
-        device_info = p.get_device_info_by_index(i)
-        if device_info["maxOutputChannels"] > 0:
-            output_devices.append(device_info)
-
-    # Print the list of available output devices and ask the user to select one
-    print("\nAvailable output devices:")
-    print("To prevent feedback, select a headphones output.")
-    print()
-
-    for i, device in enumerate(output_devices):
-        print(f"{i}: {device['name']}")
-    output_device_index = int(input("\nSelect an output device by entering its number: "))
-    output_device_info = output_devices[output_device_index]
-
-    models = hance.list_models()
-
-    print()
-    print("Available models:")
-    for i, model in enumerate(models):
-        print(f"{i+1}. {model}")
-
-    print()
-    model_num = int(input("Select a model to use by entering its number: ")) - 1
-    selected_model_path = models[model_num]
-
-    processor = engine.create_processor(selected_model_path, CHANNELS, RATE)
-
-    stop_thread = False
-    processor_active = True
-
-    def record_and_playback_thread():
-        stream_record = p.open(
-            format=FORMAT,
-            channels=CHANNELS,
-            rate=RATE,
-            input=True,
-            input_device_index=input_device_info["index"],
-            frames_per_buffer=CHUNK,
-        )
-
-        stream_play = p.open(
-            format=pyaudio.paFloat32,
-            channels=1,
-            rate=RATE,
-            frames_per_buffer=CHUNK,
-            output=True,
-            output_device_index=output_device_info["index"],
-        )
-        while not stop_thread:
-            data = stream_record.read(CHUNK, exception_on_overflow=False)
-            audio_buffer = np.frombuffer(data, dtype=np.float32)
-            if processor_active:
-                audio_buffer = processor.process(audio_buffer)
-            stream_play.write(audio_buffer.astype(np.float32).tobytes())
-
-        # stop Recording
-        stream_record.stop_stream()
-        stream_record.close()
-
-        stream_play.stop_stream()
-        stream_play.close()
-
-    t = threading.Thread(target=record_and_playback_thread)
-    t.start()
-
-    print("\nThe microphone and processing is active")
-    while True:
-        user_input = input("Enter 'p' to toggle processing on and off or 'q' to quit: ")
-        if user_input.lower() == "p":
-            # Bypass processing and continue the loop
-            if processor_active:
-                processor_active = False
-                print("The processing is bypassed")
-            else:
-                processor_active = True
-                print("The processing is active")
-        elif user_input.lower() == "q":
-            # Stop the thread
-            stop_thread = True
-            break
-
-    t.join()
-    p.terminate()
-
-
-def separate_stems(input_file_path):
-    """
-    Separates the stems from an input audio file using selected models with the StemSeparator class.
-    """
-    print("Stem separation using Hance engine with StemSeparator class.")
-    models = [
-        "vocals_separation.hance",
-        "drums_separation.hance",
-        "piano_separation.hance",
-        "bass_separation.hance",
-    ]
-    print("Available models for separation:")
-    for i, model in enumerate(models):
-        print(f"{i+1}. {model}")
-
-    selected_models = input(
-        "Select models to use by entering their numbers separated by commas (e.g., 1,3): "
-    )
-    selected_models_indices = [int(index) - 1 for index in selected_models.split(",")]
-
-    model_paths = []
-    for index in selected_models_indices:
-        model_paths.append(models[index])
-
-    # Load the input file
-    input_audio, sr = sf.read(input_file_path, dtype="float32")
-    if input_audio.ndim == 1:  # Mono to Stereo if needed
-        input_audio = np.tile(input_audio[:, np.newaxis], (1, 2))
-
-    # Assuming sample rate and number of channels (most common settings for audio files)
-    sample_rate = sr
-    num_of_channels = input_audio.ndim
-
-    engine = hance.HanceEngine()
-    stem_separator = engine.StemSeparator(
-        engine.hance_engine, model_paths, num_of_channels, sample_rate
-    )
-
-    # Process the input file
-    separated_stems = stem_separator.process(input_audio)
-
-    # Save the separated stems
+    # Construct output file path
     path, fn = os.path.split(input_file_path)
-    for i in range(len(model_paths)):
-        stem_name = model_paths[i].split("_")[0]
-        output_file_path = os.path.join(path, f"{fn.split('.')[0]}_{stem_name}_separated.wav")
-        # Assuming the model order matches the stem_names order, adjust if necessary
-        sf.write(
-            output_file_path,
-            separated_stems[:, i * num_of_channels : (i + 1) * num_of_channels],
-            sr,
-        )
-        print(f"Stem {stem_name} saved to {output_file_path}")
+    out_file_path = os.path.join(path, f"{os.path.splitext(fn)[0]}_processed.wav")
 
-    print("Stem separation completed.")
+    # Check if output file already exists
+    if os.path.exists(out_file_path):
+        overwrite = input("Output file already exists. Would you like to overwrite it? (y/n): ").strip()
+        if overwrite.lower() != "y":
+            print("Operation cancelled.")
+            return
 
+    # List available models
+    models = hance.list_models()
+    print("\nAvailable models:")
+    for i, model in enumerate(models):
+        print(f"{i+1}. {model}")
+
+    # Allow user to select model by number or provide a path
+    model_selection = input("\nSelect a model by entering its number or provide the full path to a model file: ").strip()
+
+    # Determine if the input is a number (selecting from list) or a file path
+    if model_selection.isdigit():
+        model_num = int(model_selection) - 1
+        if 0 <= model_num < len(models):
+            selected_model = models[model_num]
+        else:
+            print("Invalid model number.")
+            return
+    else:
+        selected_model = model_selection
+        if not os.path.exists(selected_model):
+            print("Model file does not exist.")
+            return
+
+    print("Using model:", selected_model)
+
+    # Initialize HanceEngine and create processor
+    hance_engine = hance.HanceEngine()
+    # Here we might need to know the number of channels and sample rate
+    # Let's assume stereo and 44100 Hz
+    processor = hance_engine.create_processor(selected_model, 2, 44100)
+
+    # List available output buses
+    num_buses = processor.get_number_of_output_buses()
+    bus_names = []
+    for i in range(num_buses):
+        bus_names.append(processor.get_output_bus_name(i))
+
+    # Determine output bus
+    if num_buses == 2 and 'Processed' in bus_names:
+        bus_num = bus_names.index("Processed")
+    else:
+        print("\nAvailable output buses:")
+        for i, name in enumerate(bus_names):
+            print(f"{i+1}: {name}")
+        bus_selection = input("\nSelect an output stem or channel by entering its number: ").strip()
+        if bus_selection.isdigit():
+            bus_num = int(bus_selection) - 1
+            if not (0 <= bus_num < num_buses):
+                print("Invalid bus number.")
+                return
+        else:
+            print("Invalid input.")
+            return
+
+    # Process the file
+    hance.process_file(
+        model_file_path=selected_model,
+        input_file_path=input_file_path,
+        output_file_path=out_file_path,
+        selected_output_bus=bus_num
+    )
+
+    print("\nFile successfully processed.")
+    print("Output file:", out_file_path)
 
 if __name__ == "__main__":
-    print("1. Remove noise or reverb from a speech recording")
-    print("2. Separate stems in a music file")
-    print("3. Process your microphone in realtime")
-    reply = input("Select an option: ")
-    if reply == "1":
-        input_file_path = input("Input file: ").strip()
-        path, fn = os.path.split(input_file_path)
-        out_file_path = path + "/" + fn.split(".")[0] + "_processed.wav"
-        if os.path.exists(out_file_path):
-            reply = input("Output file already exists, would you like to overwrite it? (y/n) ")
-            if reply != "y":
-                exit()
-
-        process_file(input_file_path.strip(), out_file_path)
-    elif reply == "2":
-        input_file_path = input("Input file for stem separation: ").strip()
-        separate_stems(input_file_path)
-    elif reply == "3":
-        process_microphone()
+    main()
