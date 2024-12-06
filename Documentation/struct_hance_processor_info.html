@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HANCE Model Inference Library<span id="projectnumber">&#160;1.0.5</span>
+   <div id="projectname">HANCE Model Inference Library<span id="projectnumber">&#160;3.0.0</span>
    </div>
    <div id="projectbrief">C Interface for the HANCE Neural Network Model Inference Library</div>
   </td>
@@ -85,11 +85,49 @@ Data Fields</h2></td></tr>
 <tr class="memitem:af565ea5e7886337608c8b275dd7d02a1"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_hance_processor_info.html#af565ea5e7886337608c8b275dd7d02a1">latencyInSamples</a></td></tr>
 <tr class="memdesc:af565ea5e7886337608c8b275dd7d02a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum latency of the model in samples.  <a href="struct_hance_processor_info.html#af565ea5e7886337608c8b275dd7d02a1">More...</a><br /></td></tr>
 <tr class="separator:af565ea5e7886337608c8b275dd7d02a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c73a2233702ffd2c563eb252bd636f6"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_hance_processor_info.html#a3c73a2233702ffd2c563eb252bd636f6">blockSize</a></td></tr>
+<tr class="memdesc:a3c73a2233702ffd2c563eb252bd636f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of the STFT blocks used by the model.  <a href="struct_hance_processor_info.html#a3c73a2233702ffd2c563eb252bd636f6">More...</a><br /></td></tr>
+<tr class="separator:a3c73a2233702ffd2c563eb252bd636f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff9afab793fa21887a9aff44be9cf80b"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_hance_processor_info.html#aff9afab793fa21887a9aff44be9cf80b">hopSize</a></td></tr>
+<tr class="memdesc:aff9afab793fa21887a9aff44be9cf80b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of the STFT hops used by the model.  <a href="struct_hance_processor_info.html#aff9afab793fa21887a9aff44be9cf80b">More...</a><br /></td></tr>
+<tr class="separator:aff9afab793fa21887a9aff44be9cf80b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >The <a class="el" href="struct_hance_processor_info.html" title="The HanceProcessorInfo contains information about a neural network based audio processor.">HanceProcessorInfo</a> contains information about a neural network based audio processor. </p>
 <p >Call the <a class="el" href="_hance_engine_8h.html#ae2eb49c6517178f15fe2658c33198839">hanceGetProcessorInfo</a> function to fill in the structure. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a id="a3c73a2233702ffd2c563eb252bd636f6" name="a3c73a2233702ffd2c563eb252bd636f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c73a2233702ffd2c563eb252bd636f6">&#9670;&nbsp;</a></span>blockSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t blockSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The size of the STFT blocks used by the model. </p>
+
+</div>
+</div>
+<a id="aff9afab793fa21887a9aff44be9cf80b" name="aff9afab793fa21887a9aff44be9cf80b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff9afab793fa21887a9aff44be9cf80b">&#9670;&nbsp;</a></span>hopSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t hopSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The size of the STFT hops used by the model. </p>
+
+</div>
+</div>
 <a id="af565ea5e7886337608c8b275dd7d02a1" name="af565ea5e7886337608c8b275dd7d02a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af565ea5e7886337608c8b275dd7d02a1">&#9670;&nbsp;</a></span>latencyInSamples</h2>
 

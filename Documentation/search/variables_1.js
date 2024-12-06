@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['numofmodelchannels_0',['numOfModelChannels',['../struct_hance_processor_info.html#a740938d9c24d4d2980528fbdc20eaef4',1,'HanceProcessorInfo']]]
+  ['hopsize_0',['hopSize',['../struct_hance_processor_info.html#aff9afab793fa21887a9aff44be9cf80b',1,'HanceProcessorInfo']]]
 ];
