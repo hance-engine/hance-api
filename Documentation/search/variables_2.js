@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['samplerate_0',['sampleRate',['../struct_hance_processor_info.html#a2bd79d2ab2dfb6aeaf75c2878ad30e1f',1,'HanceProcessorInfo']]]
+  ['latencyinsamples_0',['latencyInSamples',['../struct_hance_processor_info.html#af565ea5e7886337608c8b275dd7d02a1',1,'HanceProcessorInfo']]]
 ];

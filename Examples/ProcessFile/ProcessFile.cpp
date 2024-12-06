@@ -1,7 +1,7 @@
 /*
 
 This file is part of the HANCE engine for cross-platform model inference.
-Copyright (c) 2022 HANCE AS.
+Copyright (c) 2024 HANCE AS.
 
 You are not allowed to use, distribute or modify this code without
 a written permission from HANCE AS.
@@ -15,6 +15,8 @@ a written permission from HANCE AS.
 // We include methods to decode and encode audio in the RIFF Wave format.
 #include "../RiffWave/RiffWave.h"
 #include <vector>
+#include <set>
+#include <iomanip>
 
 using namespace std;
 
@@ -80,12 +82,50 @@ int main (int argc, char* argv[])
     if (g_processorHandle == nullptr)
         handleError ("Unable to create the HANCE audio processor.");
 
-    // Adjust the settings of the processing
-    // Maximum attenuation in dB in the range [-inf, 0]
-    hanceSetParameterValue (g_processorHandle, HANCE_PARAM_MAXATTENUATION, -20.f); 
+    // Print model information
+    HanceProcessorInfo processorInfo;
+    hanceGetProcessorInfo (g_processorHandle, &processorInfo);
+    cout << "Model information:" << endl;
+    cout << " - block size:         " << processorInfo.blockSize << " samples" << endl;
+    cout << " - hop size:           " << processorInfo.hopSize << " samples" << endl;
+    cout << " - latency:            " << processorInfo.latencyInSamples << " samples" << endl;
+    cout << " - number of channels: " << processorInfo.numOfModelChannels << endl;
+    cout << " - sample rate:        " << processorInfo.sampleRate << " Hz" << endl << endl;
 
-    // Sensitivity of the detection in % in the range [-100, 100] with 0% being neutral.
-    hanceSetParameterValue (g_processorHandle, HANCE_PARAM_SENSITIVITY, 0.f);
+    // Print output bus information
+    int numOfOutputBusses = hanceGetNumOfOutputBusses (g_processorHandle);
+    cout << "Output busses:" << endl;
+
+    // Here's a set of output busses we'd like to include in the output. Other buses will
+    // be muted.
+    set<string> outputsToIsolate = { "Processed", "Voice", "Vocals", "Snare" };
+
+    // Always show floating point values with two decimals
+    cout << fixed << setprecision (2);
+
+    for (int busIndex = 0; busIndex < numOfOutputBusses; busIndex++) {
+        vector<char> nameBuffer (255, '\0');
+        hanceGetOutputBusName (g_processorHandle, busIndex, (char*) nameBuffer.data(), nameBuffer.size());
+        string outputBusName = nameBuffer.data();
+
+        // Set the gain parameters for this output, 1.0 if bus should be included in output, otherwise 0.0
+        if (outputsToIsolate.find (outputBusName) != outputsToIsolate.end())
+            hanceSetParameterValue (g_processorHandle, HANCE_PARAM_BUS_GAINS + busIndex, 1.f);
+        else
+            hanceSetParameterValue (g_processorHandle, HANCE_PARAM_BUS_GAINS + busIndex, 0.f);
+
+        // Set the sensitivity in percent for this output
+        hanceSetParameterValue (g_processorHandle, HANCE_PARAM_BUS_SENSITIVITIES + busIndex, 0.f);
+
+        // Read back the parameter values for demonstration
+        float gain          = hanceGetParameterValue (g_processorHandle, HANCE_PARAM_BUS_GAINS + busIndex);
+        float sensitivity   = hanceGetParameterValue (g_processorHandle, HANCE_PARAM_BUS_SENSITIVITIES + busIndex);
+
+    // Make sure that we display floating point values with two decimals
+        cout << busIndex << ": " << outputBusName << ", gain = " << gain
+             << " (linear scaling), sensitivity = " << sensitivity << " (%)" << endl;
+    }
+    cout << endl;
 
     // Start processing loop
     cout << "Starting processing:" << endl;

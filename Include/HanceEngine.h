@@ -14,19 +14,18 @@ a written permission from HANCE AS.
 * powerful algorithms and processing capabilities from all languages that offer bindings for
 * standard C compatible libraries. The HANCE Audio Engine is a light-weight and cross-platform
 * library, and it should be very easy to integrate it into your application. The library can
-* load pre-trained AI models and use these for audio processing to perform various tasks such
-* as noise reduction and de-reverberation.
+* load pre-trained AI models and use these for audio processing to perform various tasks.
 *
-* The HANCE Audio Engine is delivered with general purpose models for noise reduction and
-* de-reverberation. These are designed to meet common requirements in terms of latency and
-* CPU usage. However, we can train custom models for lower latencies or less CPU usage
-* at the cost of separation quality. Please [contact us](https://hance.ai/contact) for more
+* The HANCE Audio Engine is delivered with general purpose models for noise reduction,
+* de-reverberation and stem separation. These are designed to meet common requirements
+* in terms of latency and CPU usage. However, we can train custom models for specific
+* customer requirements. Please [contact us](https://hance.ai/contact) for more
 * information.
 * 
 * \section intro_sec Getting Started
 * The HANCE API is designed to be as simple as possible. The **ProcessFile** example (see the
 * **Examples** folder in the API) illustrates how to create a HANCE processor and process audio
-* with it. [CMake 3.0](https://cmake.org/) or later is required to build the example. To build
+* with it. [CMake 3.22](https://cmake.org/) or later is required to build the example. To build
 * **ProcessFile**, open the terminal / command line prompt and locate the Examples/ProcessFile
 * subfolder in the HANCE API. Now, please type "./Build.sh" on Mac or Linux, or "Build.bat" on Windows. 
 *
@@ -78,19 +77,52 @@ a written permission from HANCE AS.
 * hanceDeleteProcessor (processorHandle);
 * ```
 *
- * \section Performance Considerations
- *
- * The HANCE Audio Engine is a light-weight and cross-platform library, and it uses either of the
- * following libraries for vector arithmetic if available:
- * - Intel Performance Primitives
- * - Apple vDSP
- * 
- * The HANCE Audio Engine reverts to pure C++ when no compatible vector arithmetic library is available.
- *
- * Copyright (c) 2023 HANCE AS.
- * 
- * @file HanceEngine.h
- */
+* \section Output Busses and Parameter Settings
+*
+* HANCE Engine models typically have two or more output busses that can be mixed together with
+* adjustable gain and sensitivity settings. A typical noise or reverb reduction model will have
+* clean speech as one output and noise or reverb as the second output bus. Stem separation models
+* will have a separate output bus for each stem.
+*
+* You can query the number of output busses that a model offers using hanceGetNumOfOutputBusses:
+* ```
+* int numOfOutputBusses = hanceGetNumOfOutputBusses (g_processorHandle);
+* ```
+*
+* Furthermore, you can query the names of the individual output busses using the bus index
+* ranging from 0 to the number of output busses minus one:
+* ```
+* vector<char> nameBuffer (255, '\0');
+* hanceGetOutputBusName (g_processorHandle, busIndex, (char*) nameBuffer.data(), nameBuffer.size());
+* string outputBusName = nameBuffer.data();
+* ```
+*
+* You can set and get the gain or sensitivity of an output bus using hanceSetParameterValue or
+* hanceGetParameterValue. Parameters are assigned to IDs and the parameter ID for the linear gain
+* of the first output bus is HANCE_PARAM_BUS_GAINS. For the second output bus, the ID is
+* HANCE_PARAM_BUS_GAINS + 1 and so forth.
+*
+* The sensitivities are handled identically with ID of the sensitivity for the first output bus
+* being HANCE_PARAM_BUS_SENSITIVITIES. Here's how to set the gain of the bus specified by busIndex
+* to 1.f (no change in gain):
+* ```
+* hanceSetParameterValue (g_processorHandle, HANCE_PARAM_BUS_GAINS + busIndex, 1.f);
+* ```
+*
+* \section Performance Considerations
+*
+* The HANCE Audio Engine is a light-weight and cross-platform library, and it can use the
+* following libraries for vector arithmetic if available:
+* - Intel Performance Primitives
+* - Apple vDSP
+* - NEON Intrinsics
+* 
+* The HANCE Audio Engine reverts to pure C++ when no compatible vector arithmetic library is available.
+*
+* Copyright (c) 2024 HANCE AS.
+* 
+* @file HanceEngine.h
+*/
 
 #include <inttypes.h>
 #include <stdbool.h>
@@ -141,6 +173,8 @@ extern "C"
 		int32_t numOfModelChannels;			/**< \brief The true number of channels used in the processing. The processor will
 												 automatically convert the channel format to match the model. */
 		int32_t latencyInSamples;			/**< \brief The maximum latency of the model in samples */
+		int32_t blockSize;					/**< \brief The size of the STFT blocks used by the model */
+		int32_t hopSize;					/**< \brief The size of the STFT hops used by the model */
 	} HanceProcessorInfo;
 
 	/**
@@ -249,6 +283,32 @@ extern "C"
 	 */
 	HANCE_API void hanceSetParameterValue (HanceProcessorHandle processorHandle, int32_t parameterIndex, float parameterValue);
 
+	/**
+	 * Gets the number of output busses offered by the audio processor
+	 * @param processorHandle				Handle to the audio processor
+	 * @return								The number of parameters offered
+	 */
+	HANCE_API int32_t hanceGetNumOfOutputBusses (HanceProcessorHandle processorHandle);
+
+	/**
+	 * Gets the name of a specific output buss offered by the audio processor
+	 * @param processorHandle				Handle to the audio processor
+	 * @param outputBusIndex				Index of the output bus to get the name for
+	 * @param outputBusName					Pointer to a char array that will receive the zero-terminated string.
+	 * 										Make sure the array allocated with maxLength as size
+	 * @param maxLength						The maximum number of characters to receive including zero termination
+	 */
+	HANCE_API void hanceGetOutputBusName (HanceProcessorHandle processorHandle, int32_t outputBusIndex, char* outputBusName, int32_t maxLength);
+
+	/**
+	 * Gets the value range of a specific parameter offered by the audio processor
+	 * @param processorHandle				Handle to the audio processor.
+	 * @param parameterIndex				Index of the parameter to get the name for.
+	 * @param minimumValue					Receives the minimum value for the parameter
+	 * @param maximumValue					Receives the maximum value for the parameter
+	 */
+	HANCE_API void hanceGetParameterRange (HanceProcessorHandle processorHandle, int32_t parameterIndex, float* minimumValue, float* maximumValue);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
@@ -270,10 +330,17 @@ extern "C"
 	 while settings equal or above 0.5 enables it.  */
 #define HANCE_PARAM_MASKEXTRAPOLATION		0x0003
 
+/** \brief The stem dependent linear gain values of the processing 
+     ranging from 0 and upwards. You can set individual stems by
+	 adding the output stem index to the define, so
+	 HANCE_PARAM_BUS_GAINS will be the first output stem,
+	 HANCE_PARAM_BUS_GAINS + 1 the second, and so forth. */
+#define HANCE_PARAM_BUS_GAINS				0x0100
+
 /** \brief The stem dependent sensitivities of the processing in
      percent ranging from -100% to 100%. 0% is neutral and positive
 	 values will increase the amount of reduction. You can set
-	 individual stems by adding the model index to the define, so
-	 HANCE_PARAM_MODEL_SENSITIVITIES will be the first model,
-	 HANCE_PARAM_MODEL_SENSITIVITIES + 1 the second, and so forth. */
-#define HANCE_PARAM_MODEL_SENSITIVITIES		0x1000
+	 individual stems by adding the stem index to the define, so
+	 HANCE_PARAM_BUS_SENSITIVITIES will be the first stem,
+	 HANCE_PARAM_BUS_SENSITIVITIES + 1 the second, and so forth. */
+#define HANCE_PARAM_BUS_SENSITIVITIES		0x0200
