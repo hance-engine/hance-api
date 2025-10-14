@@ -36,7 +36,7 @@ platforms.
 
 Learn more and listen to examples at [HANCE.ai](https://hance.ai)
 
-[Contact us](https://hance.ai/contact/)
+[Contact us](https://hance.ai/contact-us)
 
 ## Why use HANCE?
 
