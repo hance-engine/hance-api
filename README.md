@@ -22,9 +22,9 @@ See documentation [here](PythonAPI/README.md) for instructions to test with Pyth
 ### Models
 The models in the [Models](Models) folder have semantic names. For example, [speech-denoise-32ms.v26.1.hance](Models/speech-denoise-32ms.v26.1.hance), signifies that this is a model that *denoises* speech, and has a latency of 32ms.
 
-All models within a family, e.g. the speech-denoise family, have similar characteristics. For denoising purposes, we recommend starting with [speech-denoise-32ms-tiny.v26.1.hance](Models/speech-denoise-32ms-tiny.v26.1.hance) to see if that meets your requirements, and move up in size if needed. We also note that if you have special requirements for particular audio circumstances, we offer can build models to better suit those circumstances. Contact us if this is the case.
+All models within a family, e.g., the speech-denoise family, have similar characteristics. If you have special requirements for particular audio circumstances, we offer can build models to better suit those circumstances. Contact us if this is the case.
 
-We offer both speech noise reduction models and models that combine noise and reverb reduction for speech. The latter will output cleaned dialogue, noise and reverb estimations as separate output busses. 
+We offer both speech noise reduction models and models that combine noise and reverb reduction for speech. The latter will output cleaned dialogue, noise and reverb in separate output busses.
 
 The following table shows the currently available models along with CPU efficiency, file size and latencies:
 
@@ -69,4 +69,5 @@ Learn more and listen to examples at [HANCE.ai](https://hance.ai/)
 ## Documentation
 
 Please see the online API documentation here for integrating with HANCE Engine: [https://hance-engine.github.io/hance-api/Documentation/](https://hance-engine.github.io/hance-api/Documentation/)
+
 
