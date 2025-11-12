@@ -43,7 +43,7 @@ The following table shows the currently available models along with CPU efficien
 
 \*The real-time factor is measured on a single core of an AMD RYZEN AI MAX+ 395.
 
-Read more details about the model [here](Models/READEME.md).
+Read more details about the model [here](Models/README.md).
 
 ## Multiplatform
 
@@ -69,3 +69,4 @@ Learn more and listen to examples at [HANCE.ai](https://hance.ai/)
 ## Documentation
 
 Please see the online API documentation here for integrating with HANCE Engine: [https://hance-engine.github.io/hance-api/Documentation/](https://hance-engine.github.io/hance-api/Documentation/)
+
