@@ -14,6 +14,7 @@ var searchData=
   ['hancegetparameterrange_11',['hanceGetParameterRange',['../_hance_engine_8h.html#aade14d7527accc7ee8dffe00971b2642',1,'HanceEngine.h']]],
   ['hancegetparametervalue_12',['hanceGetParameterValue',['../_hance_engine_8h.html#aa80d000b6d2162a5e1b8e12ba5ee067a',1,'HanceEngine.h']]],
   ['hancegetprocessorinfo_13',['hanceGetProcessorInfo',['../_hance_engine_8h.html#ae2eb49c6517178f15fe2658c33198839',1,'HanceEngine.h']]],
-  ['hanceresetprocessorstate_14',['hanceResetProcessorState',['../_hance_engine_8h.html#aee928fec73868f94d8176fd0f1d886fe',1,'HanceEngine.h']]],
-  ['hancesetparametervalue_15',['hanceSetParameterValue',['../_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a',1,'HanceEngine.h']]]
+  ['hancegetvectorarithmeticwrappername_14',['hanceGetVectorArithmeticWrapperName',['../_hance_engine_8h.html#a18f513ff55da481a57ce710728cc0e27',1,'HanceEngine.h']]],
+  ['hanceresetprocessorstate_15',['hanceResetProcessorState',['../_hance_engine_8h.html#aee928fec73868f94d8176fd0f1d886fe',1,'HanceEngine.h']]],
+  ['hancesetparametervalue_16',['hanceSetParameterValue',['../_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a',1,'HanceEngine.h']]]
 ];

@@ -15,9 +15,9 @@ if not os.path.exists(os.path.join("hance", "bin")):
     up_one_folder = os.path.split(base_path)[0]
     up_two_folders = os.path.split(up_one_folder)[0]
 
-    shutil.copytree(os.path.join(up_two_folders, "Bin"), os.path.join(base_path, "hance", "bin"))
+    shutil.copytree(os.path.join(up_one_folder, "engine", "Distribution", "Bin"), os.path.join(base_path, "hance", "bin"))
     shutil.copytree(
-        os.path.join(up_two_folders, "Models"), os.path.join(base_path, "hance", "models")
+        os.path.join(up_one_folder, "engine", "Distribution", "Models"), os.path.join(base_path, "hance", "models")
     )
 
 
@@ -86,7 +86,7 @@ def get_package_data_list():
     files_to_include.append("models/*")
 
     if system_name == "Windows32bit":
-        files_to_include.append(os.path.join(bin_path, "Windows", "HanceEngine.dll"))
+        files_to_include.append(os.path.join(bin_path, "Windows_x86", "HanceEngine.dll"))
     elif system_name == "Windows64bit":
         files_to_include.append(os.path.join(bin_path, "Windows_x64", "HanceEngine.dll"))
     elif system_name == "Darwin":

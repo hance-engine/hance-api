@@ -9,6 +9,7 @@ a written permission from HANCE AS.
 */
 
 #include <iostream>
+#include <cstdint>
 
 #ifdef _WIN32
 	#pragma pack (push, 1)

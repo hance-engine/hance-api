@@ -1,10 +1,11 @@
 /*
 
 This file is part of the HANCE engine for cross-platform model inference.
-Copyright (c) 2023 HANCE AS.
+Copyright (c) 2024 HANCE AS.
 
 You are not allowed to use, distribute or modify this code without
 a written permission from HANCE AS.
+
 
 */
 
@@ -24,10 +25,12 @@ a written permission from HANCE AS.
 * 
 * \section intro_sec Getting Started
 * The HANCE API is designed to be as simple as possible. The **ProcessFile** example (see the
-* **Examples** folder in the API) illustrates how to create a HANCE processor and process audio
+* **Examples** folder in the [HANCE API repository on GitHub](https://github.com/hance-engine/hance-api))
+* illustrates how to create a HANCE processor and process audio
 * with it. [CMake 3.22](https://cmake.org/) or later is required to build the example. To build
 * **ProcessFile**, open the terminal / command line prompt and locate the Examples/ProcessFile
-* subfolder in the HANCE API. Now, please type "./Build.sh" on Mac or Linux, or "Build.bat" on Windows. 
+* subfolder in the [HANCE API repository on GitHub](https://github.com/hance-engine/hance-api).
+* Now, please type "./Build.sh" on Mac or Linux, or "Build.bat" on Windows. 
 *
 * To use the HANCE API, we first need to make sure the "Include" in the HANCE API is added to the
 * header search path and include the HanceEngine header file:
@@ -308,6 +311,14 @@ extern "C"
 	 * @param maximumValue					Receives the maximum value for the parameter
 	 */
 	HANCE_API void hanceGetParameterRange (HanceProcessorHandle processorHandle, int32_t parameterIndex, float* minimumValue, float* maximumValue);
+
+	/**
+	 * Gets the name of the arithmetic library in use
+	 * @param wrapperName					Pointer to a char array that will receive the zero-terminated string.
+	 * 										Make sure the array allocated with maxLength as size
+	 * @param maxLength						The maximum number of characters to receive including zero termination
+	 */
+	HANCE_API void hanceGetVectorArithmeticWrapperName (char* wrapperName, int32_t maxLength);
 
 #ifdef __cplusplus
 }

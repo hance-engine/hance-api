@@ -21,9 +21,10 @@ var searchData=
   ['hancegetparameterrange_18',['hanceGetParameterRange',['../_hance_engine_8h.html#aade14d7527accc7ee8dffe00971b2642',1,'HanceEngine.h']]],
   ['hancegetparametervalue_19',['hanceGetParameterValue',['../_hance_engine_8h.html#aa80d000b6d2162a5e1b8e12ba5ee067a',1,'HanceEngine.h']]],
   ['hancegetprocessorinfo_20',['hanceGetProcessorInfo',['../_hance_engine_8h.html#ae2eb49c6517178f15fe2658c33198839',1,'HanceEngine.h']]],
-  ['hanceprocessorhandle_21',['HanceProcessorHandle',['../_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617',1,'HanceEngine.h']]],
-  ['hanceprocessorinfo_22',['HanceProcessorInfo',['../struct_hance_processor_info.html',1,'HanceProcessorInfo'],['../_hance_engine_8h.html#a2a4890189bd9bf23ccdf3f815ce7dac4',1,'HanceProcessorInfo():&#160;HanceEngine.h']]],
-  ['hanceresetprocessorstate_23',['hanceResetProcessorState',['../_hance_engine_8h.html#aee928fec73868f94d8176fd0f1d886fe',1,'HanceEngine.h']]],
-  ['hancesetparametervalue_24',['hanceSetParameterValue',['../_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a',1,'HanceEngine.h']]],
-  ['hopsize_25',['hopSize',['../struct_hance_processor_info.html#aff9afab793fa21887a9aff44be9cf80b',1,'HanceProcessorInfo']]]
+  ['hancegetvectorarithmeticwrappername_21',['hanceGetVectorArithmeticWrapperName',['../_hance_engine_8h.html#a18f513ff55da481a57ce710728cc0e27',1,'HanceEngine.h']]],
+  ['hanceprocessorhandle_22',['HanceProcessorHandle',['../_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617',1,'HanceEngine.h']]],
+  ['hanceprocessorinfo_23',['HanceProcessorInfo',['../struct_hance_processor_info.html',1,'HanceProcessorInfo'],['../_hance_engine_8h.html#a2a4890189bd9bf23ccdf3f815ce7dac4',1,'HanceProcessorInfo():&#160;HanceEngine.h']]],
+  ['hanceresetprocessorstate_24',['hanceResetProcessorState',['../_hance_engine_8h.html#aee928fec73868f94d8176fd0f1d886fe',1,'HanceEngine.h']]],
+  ['hancesetparametervalue_25',['hanceSetParameterValue',['../_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a',1,'HanceEngine.h']]],
+  ['hopsize_26',['hopSize',['../struct_hance_processor_info.html#aff9afab793fa21887a9aff44be9cf80b',1,'HanceProcessorInfo']]]
 ];

@@ -3,7 +3,14 @@ import os
 import platform
 import re
 
-import numpy as np
+# Check for required modules and prompt to install if missing
+try:
+    import numpy as np
+except ImportError:
+    print("NumPy is not installed. Please install it using the command:")
+    print("pip install numpy")
+    exit()
+
 
 MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(MODULE_PATH, "models")

@@ -21,7 +21,7 @@ except ImportError:
     exit()
 
 def main():
-    print("Remove noise from voice recordings or separate stems in mixes using Hance.")
+    print("Enhance or clean up audio recordings using Hance models.")
     # Get input file from user
     input_file_path = input("Enter the path to your input audio file: ").strip()
     
@@ -90,10 +90,11 @@ def main():
     if num_buses == 2 and 'Processed' in bus_names:
         bus_num = bus_names.index("Processed")
     else:
-        print("\nAvailable output buses:")
+        print("\nAvailable outputs:")
+        
         for i, name in enumerate(bus_names):
             print(f"{i+1}: {name}")
-        bus_selection = input("\nSelect an output stem or channel by entering its number: ").strip()
+        bus_selection = input("\nSelect the output you want to hear. For example, choose 'Dialogue' to get the cleaned result: ").strip()
         if bus_selection.isdigit():
             bus_num = int(bus_selection) - 1
             if not (0 <= bus_num < num_buses):
