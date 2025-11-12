@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HANCE Model Inference Library<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">HANCE Model Inference Library<span id="projectnumber">&#160;26.1</span>
    </div>
    <div id="projectbrief">C Interface for the HANCE Neural Network Model Inference Library</div>
   </td>
@@ -142,6 +142,8 @@ Functions</h2></td></tr>
 <tr class="separator:a77bcc8725c0c24ccde5e13c3c6da921a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aade14d7527accc7ee8dffe00971b2642"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#aade14d7527accc7ee8dffe00971b2642">hanceGetParameterRange</a> (<a class="el" href="_hance_engine_8h.html#a15bc7271246e1a0bbc7f8b1f4a572617">HanceProcessorHandle</a> processorHandle, int32_t parameterIndex, float *minimumValue, float *maximumValue)</td></tr>
 <tr class="separator:aade14d7527accc7ee8dffe00971b2642"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18f513ff55da481a57ce710728cc0e27"><td class="memItemLeft" align="right" valign="top">HANCE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_hance_engine_8h.html#a18f513ff55da481a57ce710728cc0e27">hanceGetVectorArithmeticWrapperName</a> (char *wrapperName, int32_t maxLength)</td></tr>
+<tr class="separator:a18f513ff55da481a57ce710728cc0e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="adb0167d9ebb057dab28c8ccfde91ee1f" name="adb0167d9ebb057dab28c8ccfde91ee1f"></a>
@@ -779,6 +781,41 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">processorHandle</td><td>Handle to the audio processor. </td></tr>
     <tr><td class="paramname">processorInfo</td><td>Pointer to a <a class="el" href="struct_hance_processor_info.html" title="The HanceProcessorInfo contains information about a neural network based audio processor.">HanceProcessorInfo</a> struct that will receive the model information. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a18f513ff55da481a57ce710728cc0e27" name="a18f513ff55da481a57ce710728cc0e27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18f513ff55da481a57ce710728cc0e27">&#9670;&nbsp;</a></span>hanceGetVectorArithmeticWrapperName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANCE_API void hanceGetVectorArithmeticWrapperName </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>wrapperName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>maxLength</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Gets the name of the arithmetic library in use </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">wrapperName</td><td>Pointer to a char array that will receive the zero-terminated string. Make sure the array allocated with maxLength as size </td></tr>
+    <tr><td class="paramname">maxLength</td><td>The maximum number of characters to receive including zero termination </td></tr>
   </table>
   </dd>
 </dl>

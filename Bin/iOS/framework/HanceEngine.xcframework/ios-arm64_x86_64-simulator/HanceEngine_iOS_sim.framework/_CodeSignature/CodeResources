@@ -4,9 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Frameworks/libHanceEngine.3.0.0.dylib</key>
+		<key>Frameworks/libHanceEngine.26.1.0.dylib</key>
 		<data>
-		BOTYJ6pgu/qLQAK3gFwaO5DB9TM=
+		krhk2xi1EV8f1NVcUXMAZmTIOAA=
 		</data>
 		<key>Headers/EngineAdapterObjC.h</key>
 		<data>
@@ -71,11 +71,11 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/libHanceEngine.3.0.0.dylib</key>
+		<key>Frameworks/libHanceEngine.26.1.0.dylib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6fKhCIT5yMhAbBSAXEqUrusY/55pJc2QhYQxhCa0hdE=
+			DiQ9QlKHDvzYS9wQs03T+F7rafKgjOYH3VSqWtnDn24=
 			</data>
 		</dict>
 		<key>Headers/EngineAdapterObjC.h</key>

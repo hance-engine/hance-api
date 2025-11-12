@@ -79,12 +79,12 @@ To process a file with HANCE, you can use the `process_file` function as follows
 This will apply the enhancement model specified by `models[0]` to the input file located at `input_file_path`, and save the enhanced audio to the output file at `output_file_path`. 
 
 ### Models
-The models in the models folder have semantic names. For example, speech-denoise-48kHz-32ms.hance, signifies that this is a model that _denoises_ speech, expects an input samplerate of 48kHz, and has a latency of 32ms. For product information, take a look at [this page](https://hance.ai/products)
+The models in the **models** folder use clear, descriptive names. For example, `speech-denoise-32ms-v26.1.hance` indicates a model designed to _denoise_ speech with a latency of 32 ms. For product details, visit [hance.ai](https://hance.ai/).
 
-All models within a family, e.g. the speech-denoise family, have similar characteristics. For denoising purposes, we recommend starting with speech-denoise-48kHz-32ms-tiny.hance to see if that meets your requirements, and move up in size if needed. We also note that if you have special requirements for particular audio circumstances, we offer can build models to better suit those circumstances. Contact us if this is the case.
+All models within a family (for example, the **speech-denoise** family) share similar characteristics. For general denoising, we recommend starting with `speech-denoise-96ms-v26.1.hance` to check if it meets your needs, and moving down to shorter latency variants if needed.  
+
+If you have specific requirements or challenging audio conditions, we can build customized models optimized for your use case—feel free to contact us to discuss options.
 
 Please note that hance.process_file is using PySoundFile to read and write audio files. While PySoundFile is not a requirement for using HANCE, it is a convenient library for handling audio files in Python.
 
-Check out the `hance_file.py` file to see how you can read and write files block by block for real-time processing.
-
-For more information and examples on using HANCE, see the HANCE documentation.
+For more information and examples on using HANCE, see the [HANCE documentation](https://hance.ai/docs/welcome).
