@@ -14,7 +14,7 @@ https://github.com/hance-engine/hance-api/assets/3242951/b8c06232-1633-49cf-b30e
 
 The easiest way to try out the HANCE Engine is to use the HANCE Model Player and load one of the models from the [Models](Models) subdirectory in this repository. This allows you to adjust the parameters of the model in real-time, so that you can optimize parameters for your use case.
 
-The HANCE Model Player is available as an AudioUnit for MacOS [here](https://files.hance.ai/plugin/v26.1/HanceModelPlayer_macOS_26_1_0.pkg.zip) and as VST3 for Windows [here](https://files.hance.ai/plugin/v26.1/HanceModelPlayer_Win64_26_1_0.exe). They can be tested in the audio editing software of your choice, like [Reaper](https://www.reaper.fm/).
+The HANCE Model Player is available as an AudioUnit for MacOS [here](https://files.hance.ai/plugin/v26.1/HanceModelPlayer_macOS_26_1_1.pkg.zip) and as VST3 for Windows [here](https://files.hance.ai/plugin/v26.1/HanceModelPlayer_Win64_26_1_1.exe). They can be tested in the audio editing software of your choice, like [Reaper](https://www.reaper.fm/).
 
 ### Using Python
 See documentation [here](PythonAPI/README.md) for instructions to test with Python.
@@ -69,5 +69,6 @@ Learn more and listen to examples at [HANCE.ai](https://hance.ai/)
 ## Documentation
 
 Please see the online API documentation here for integrating with HANCE Engine: [https://hance-engine.github.io/hance-api/Documentation/](https://hance-engine.github.io/hance-api/Documentation/)
+
 
 
