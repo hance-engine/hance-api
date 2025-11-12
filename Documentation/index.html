@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HANCE Model Inference Library<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">HANCE Model Inference Library<span id="projectnumber">&#160;26.1</span>
    </div>
    <div id="projectbrief">C Interface for the HANCE Neural Network Model Inference Library</div>
   </td>
@@ -70,7 +70,7 @@ $(function() {
 <p >The HANCE Audio Engine is delivered with general purpose models for noise reduction, de-reverberation and stem separation. These are designed to meet common requirements in terms of latency and CPU usage. However, we can train custom models for specific customer requirements. Please <a href="https://hance.ai/contact">contact us</a> for more information.</p>
 <h1><a class="anchor" id="intro_sec"></a>
 Getting Started</h1>
-<p >The HANCE API is designed to be as simple as possible. The <b>ProcessFile</b> example (see the <b>Examples</b> folder in the API) illustrates how to create a HANCE processor and process audio with it. <a href="https://cmake.org/">CMake 3.22</a> or later is required to build the example. To build <b>ProcessFile</b>, open the terminal / command line prompt and locate the Examples/ProcessFile subfolder in the HANCE API. Now, please type "./Build.sh" on Mac or Linux, or "Build.bat" on Windows.</p>
+<p >The HANCE API is designed to be as simple as possible. The <b>ProcessFile</b> example (see the <b>Examples</b> folder in the <a href="https://github.com/hance-engine/hance-api">HANCE API repository on GitHub</a>) illustrates how to create a HANCE processor and process audio with it. <a href="https://cmake.org/">CMake 3.22</a> or later is required to build the example. To build <b>ProcessFile</b>, open the terminal / command line prompt and locate the Examples/ProcessFile subfolder in the <a href="https://github.com/hance-engine/hance-api">HANCE API repository on GitHub</a>. Now, please type "./Build.sh" on Mac or Linux, or "Build.bat" on Windows.</p>
 <p >To use the HANCE API, we first need to make sure the "Include" in the HANCE API is added to the header search path and include the HanceEngine header file: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="_hance_engine_8h.html">HanceEngine.h</a>&quot;</span></div>
 <div class="ttc" id="a_hance_engine_8h_html"><div class="ttname"><a href="_hance_engine_8h.html">HanceEngine.h</a></div></div>
 </div><!-- fragment --><p> Now we can create an instance of a HANCE processor by specifying a path to a HANCE model file along with the number of channels and sample rate to use: </p><div class="fragment"><div class="line"><span class="comment">// Create a HANCE processor that loads the pre-trained model from file</span></div>
@@ -109,7 +109,7 @@ Busses and Parameter Settings</h1>
 </div><!-- fragment --><p >You can set and get the gain or sensitivity of an output bus using hanceSetParameterValue or hanceGetParameterValue. Parameters are assigned to IDs and the parameter ID for the linear gain of the first output bus is HANCE_PARAM_BUS_GAINS. For the second output bus, the ID is HANCE_PARAM_BUS_GAINS + 1 and so forth.</p>
 <p >The sensitivities are handled identically with ID of the sensitivity for the first output bus being HANCE_PARAM_BUS_SENSITIVITIES. Here's how to set the gain of the bus specified by busIndex to 1.f (no change in gain): </p><div class="fragment"><div class="line"><a class="code hl_function" href="_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a">hanceSetParameterValue</a> (g_processorHandle, <a class="code hl_define" href="_hance_engine_8h.html#adb0167d9ebb057dab28c8ccfde91ee1f">HANCE_PARAM_BUS_GAINS</a> + busIndex, 1.f);</div>
 <div class="ttc" id="a_hance_engine_8h_html_a9b4ad8ba51f91a018a70ac1adabe877a"><div class="ttname"><a href="_hance_engine_8h.html#a9b4ad8ba51f91a018a70ac1adabe877a">hanceSetParameterValue</a></div><div class="ttdeci">HANCE_API void hanceSetParameterValue(HanceProcessorHandle processorHandle, int32_t parameterIndex, float parameterValue)</div></div>
-<div class="ttc" id="a_hance_engine_8h_html_adb0167d9ebb057dab28c8ccfde91ee1f"><div class="ttname"><a href="_hance_engine_8h.html#adb0167d9ebb057dab28c8ccfde91ee1f">HANCE_PARAM_BUS_GAINS</a></div><div class="ttdeci">#define HANCE_PARAM_BUS_GAINS</div><div class="ttdoc">The stem dependent linear gain values of the processing ranging from 0 and upwards....</div><div class="ttdef"><b>Definition:</b> HanceEngine.h:338</div></div>
+<div class="ttc" id="a_hance_engine_8h_html_adb0167d9ebb057dab28c8ccfde91ee1f"><div class="ttname"><a href="_hance_engine_8h.html#adb0167d9ebb057dab28c8ccfde91ee1f">HANCE_PARAM_BUS_GAINS</a></div><div class="ttdeci">#define HANCE_PARAM_BUS_GAINS</div><div class="ttdoc">The stem dependent linear gain values of the processing ranging from 0 and upwards....</div><div class="ttdef"><b>Definition:</b> HanceEngine.h:349</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="Performance"></a>
 Considerations</h1>
 <p >The HANCE Audio Engine is a light-weight and cross-platform library, and it can use the following libraries for vector arithmetic if available:</p><ul>

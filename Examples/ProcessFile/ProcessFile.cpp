@@ -92,13 +92,17 @@ int main (int argc, char* argv[])
     cout << " - number of channels: " << processorInfo.numOfModelChannels << endl;
     cout << " - sample rate:        " << processorInfo.sampleRate << " Hz" << endl << endl;
 
+    vector<char> wrapperNameBuffer (255, '\0');
+    hanceGetVectorArithmeticWrapperName ((char*) wrapperNameBuffer.data(), wrapperNameBuffer.size());
+    cout << "Vector arithmetic wrapper: " << wrapperNameBuffer.data() << endl << endl;
+
     // Print output bus information
     int numOfOutputBusses = hanceGetNumOfOutputBusses (g_processorHandle);
     cout << "Output busses:" << endl;
 
     // Here's a set of output busses we'd like to include in the output. Other buses will
     // be muted.
-    set<string> outputsToIsolate = { "Processed", "Voice", "Vocals", "Snare" };
+    set<string> outputsToIsolate = { "Dialogue", "Speech", "Processed", "Voice", "Vocals", "Snare" };
 
     // Always show floating point values with two decimals
     cout << fixed << setprecision (2);

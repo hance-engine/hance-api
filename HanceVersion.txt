@@ -1,1 +1,1 @@
-set (HANCE_VERSION 3.0.0)
+set (HANCE_VERSION 26.1.0)
