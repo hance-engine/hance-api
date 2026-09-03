@@ -1,6 +1,6 @@
 /*
 
-This file is part of the Rapidly engine for cross-platform model inference.
+This file is part of the Rapidly SDK for cross-platform model inference.
 Copyright (c) 2026 Rapidly Labs AS.
 
 You are not allowed to use, distribute or modify this code without

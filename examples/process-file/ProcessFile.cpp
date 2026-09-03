@@ -1,6 +1,6 @@
 /*
 
-This file is part of the Rapidly engine for cross-platform model inference.
+This file is part of the Rapidly SDK for cross-platform model inference.
 Copyright (c) 2026 Rapidly Labs AS.
 
 You are not allowed to use, distribute or modify this code without
@@ -9,13 +9,14 @@ a written permission from Rapidly Labs AS.
 */
 
 // Include the header file RapidlyEngine.h to get access to the C interface for the
-// Rapidly Audio Engine
+// Rapidly SDK
 #include "RapidlyEngine.h"
 
 // We include methods to decode and encode audio in the RIFF Wave format.
 #include "../riffwave/RiffWave.h"
 #include <vector>
 #include <set>
+#include <cctype>
 #include <iomanip>
 
 using namespace std;
@@ -102,7 +103,10 @@ int main (int argc, char* argv[])
 
     // Here's a set of output busses we'd like to include in the output. Other buses will
     // be muted.
-    set<string> outputsToIsolate = { "Dialogue", "Speech", "Processed", "Voice", "Vocals", "Snare" };
+    // Bus names come from the model file; compare case-insensitively so
+    // "Dialogue" (speech models) and "vocals" (music model) both match.
+    set<string> outputsToIsolate = { "dialogue", "speech", "processed", "voice", "vocals", "snare" };
+    auto lowercase = [] (string s) { for (auto& c : s) c = (char) tolower ((unsigned char) c); return s; };
 
     // Always show floating point values with two decimals
     cout << fixed << setprecision (2);
@@ -113,7 +117,7 @@ int main (int argc, char* argv[])
         string outputBusName = nameBuffer.data();
 
         // Set the gain parameters for this output, 1.0 if bus should be included in output, otherwise 0.0
-        if (outputsToIsolate.find (outputBusName) != outputsToIsolate.end())
+        if (outputsToIsolate.find (lowercase (outputBusName)) != outputsToIsolate.end())
             rapidlySetParameterValue (g_processorHandle, RAPIDLY_PARAM_BUS_GAINS + busIndex, 1.f);
         else
             rapidlySetParameterValue (g_processorHandle, RAPIDLY_PARAM_BUS_GAINS + busIndex, 0.f);

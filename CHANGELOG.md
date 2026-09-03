@@ -3,6 +3,31 @@
 All notable changes to the Rapidly SDK are documented here.
 Versions follow [semantic versioning](https://semver.org).
 
+## [1.1.0] - 2026-09-03
+
+### Added
+- Additional licensing options alongside offline licence keys:
+  - Subscription keys, for usage-based licensing with per-session reporting
+    (bracket each end user's processing with `rapidlyStartSession` /
+    `rapidlyStopSession`).
+  - Activation keys, for offline-capable installs with periodic activation
+    (register `rapidlySetActivationHooks` before adding the key).
+- Music stem separation model family, launching with a 96 ms latency variant.
+- Hardened runtime integrity protection: interference with the running engine
+  results in watermarked output.
+
+### Changed
+- Model files updated to v1.1 with versioned model identifiers. v1.0 model
+  files are not loadable by this release; use the v1.1 model files included
+  in this distribution.
+
+### Fixed
+- An audio artifact affecting output on Apple platforms.
+- A sample rate handling issue.
+
+### Coming in a future release
+- WebAssembly build.
+
 ## [1.0.0] — 2026-05-27
 
 Initial public release.

@@ -1,6 +1,6 @@
 /*
 
-This file is part of the Rapidly engine for cross-platform model inference.
+This file is part of the Rapidly SDK for cross-platform model inference.
 Copyright (c) 2026 Rapidly Labs AS.
 
 You are not allowed to use, distribute or modify this code without
@@ -253,15 +253,19 @@ public class RapidlyEngine private constructor(private var handle: Long) : AutoC
     public companion object {
 
         init {
-            // Loads libRapidlyEngineJni.so. The engine libRapidlyEngine.so is
-            // a NEEDED dependency of it and is resolved automatically by the
-            // Android dynamic linker from the app's native library directory,
-            // where the .aar packs both side by side.
+            // Load the engine library directly FIRST: loading through the JVM
+            // (rather than leaving it to the dynamic linker as a NEEDED
+            // dependency of the JNI shim) makes the JVM invoke the engine's
+            // JNI_OnLoad, which the engine needs to reach the platform
+            // networking stack for online licence keys. Offline licence keys
+            // work either way. Then load the JNI shim; its engine dependency
+            // is already satisfied. The .aar packs both .so side by side.
+            System.loadLibrary("RapidlyEngine")
             System.loadLibrary("RapidlyEngineJni")
         }
 
         /**
-         * Adds a licence key to the Rapidly engine.
+         * Adds a licence key to the Rapidly SDK.
          *
          * Licence state is global, so this must be called BEFORE constructing
          * any [RapidlyEngine] instance. Without a covering licence the SDK
@@ -275,6 +279,33 @@ public class RapidlyEngine private constructor(private var handle: Long) : AutoC
          */
         @JvmStatic
         public fun addLicense(licenseString: String): Boolean = nativeAddLicense(licenseString)
+
+        /**
+         * This call is ignored because the SDK only ever talks to Rapidly's
+         * production API. It does so only when a subscription key or
+         * activation key is in use, for licensing and billing. Licence keys
+         * are fully offline. Audio never leaves the device.
+         */
+        @JvmStatic
+        public fun setApiBaseUrl(baseUrl: String): Unit = nativeSetApiBaseUrl(baseUrl)
+
+        /**
+         * Starts a usage session for one end user. Subscription deployments
+         * only; silently ignored otherwise. Use an opaque identifier (a UUID
+         * or hash), never an email or name. Non-blocking: audio is never
+         * interrupted while the session is established.
+         *
+         * @return `true` if the SDK is currently authorized for processing.
+         */
+        @JvmStatic
+        public fun startSession(externalUserId: String): Boolean = nativeStartSession(externalUserId)
+
+        /**
+         * Ends the current usage session and reports its duration.
+         * Subscription deployments only; silently ignored otherwise.
+         */
+        @JvmStatic
+        public fun stopSession(): Unit = nativeStopSession()
 
         /**
          * Creates an audio processor and loads a single model file.
@@ -332,6 +363,15 @@ public class RapidlyEngine private constructor(private var handle: Long) : AutoC
 
         @JvmStatic
         private external fun nativeAddLicense(licenseString: String): Boolean
+
+        @JvmStatic
+        private external fun nativeSetApiBaseUrl(baseUrl: String)
+
+        @JvmStatic
+        private external fun nativeStartSession(externalUserId: String): Boolean
+
+        @JvmStatic
+        private external fun nativeStopSession()
 
         @JvmStatic
         private external fun nativeCreateProcessor(

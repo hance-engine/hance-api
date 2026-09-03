@@ -6,8 +6,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rapidly"
-version = "1.0"
-description = "The Python API to the Rapidly engine — realtime audio separation powered by Rapidly Labs AS."
+version = "1.1.0"
+description = "The Python API to the Rapidly SDK: realtime audio separation powered by Rapidly Labs AS."
 readme = "README.md"
 authors = [{ name = "Rapidly Labs AS", email = "support@rapidly.io" }]
 license = { text = "Proprietary — see LICENSE" }

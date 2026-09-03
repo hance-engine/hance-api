@@ -15,7 +15,7 @@ Pick the latest version. Supports iOS 14+ and macOS 11+.
 Or in a `Package.swift`-based project:
 
 ```swift
-.package(url: "https://github.com/rapidly-labs/rapidly-sdk", from: "1.0.0")
+.package(url: "https://github.com/rapidly-labs/rapidly-sdk", from: "1.1.0")
 ```
 
 ## Use
@@ -25,9 +25,9 @@ import RapidlyEngine
 
 RapidlyEngine.addLicense("lk_...")               // licence first
 let engine = RapidlyEngine(
-    modelFilepath: "models/speech-denoise-32ms.v1.0.rapidly",
+    modelFilepath: "models/speech-denoise-32ms.v1.1.rapidly",
     numOfChannels: 2,
-    sampleRate: 44100
+    sampleRate: 48000
 )
 engine?.addAudioInterleaved(pcmChannels: inputBuffer, numOfSamples: numSamples)
 engine?.getAudioInterleaved(pcmChannels: outputBuffer, numOfSamples: numSamples)

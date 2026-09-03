@@ -17,7 +17,17 @@
         container" -- which is what the SDK does on a customer-
         supplied model file path.
 
-        No tracking, no data collection. The SDK is fully on-device.
+        No tracking. Audio processing is fully on-device in every
+        licensing mode, and audio content never leaves the device.
+
+        Data collection depends on the licensing mode the customer
+        integrates. Offline licence keys (lk_): no data collection at
+        all. Subscription / activation deployments: the SDK reports
+        session usage (session duration and authorized processing time)
+        together with the integrator-supplied opaque user identifier to
+        Rapidly's licensing service, solely to enforce and account for
+        the customer's subscription. Declared below as UserID and
+        ProductInteraction, purpose App Functionality, no tracking.
 
         AUDIT (post-PR-92 cleanup, CL-5): `nm -u` was run against all
         three shipped slices (macOS universal, iOS arm64, iOS Simulator
@@ -49,7 +59,32 @@
     <key>NSPrivacyTrackingDomains</key>
     <array/>
     <key>NSPrivacyCollectedDataTypes</key>
-    <array/>
+    <array>
+        <dict>
+            <key>NSPrivacyCollectedDataType</key>
+            <string>NSPrivacyCollectedDataTypeUserID</string>
+            <key>NSPrivacyCollectedDataTypeLinked</key>
+            <true/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypePurposes</key>
+            <array>
+                <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSPrivacyCollectedDataType</key>
+            <string>NSPrivacyCollectedDataTypeProductInteraction</string>
+            <key>NSPrivacyCollectedDataTypeLinked</key>
+            <true/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypePurposes</key>
+            <array>
+                <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+            </array>
+        </dict>
+    </array>
     <key>NSPrivacyAccessedAPITypes</key>
     <array>
         <dict>

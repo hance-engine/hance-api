@@ -1,4 +1,4 @@
-# Raspberry Pi setup for the Rapidly Engine
+# Raspberry Pi setup for the Rapidly SDK
 
 1. Download and run the Raspberry Pi Imager:
    * Follow the instructions on [Raspberry Pi website](https://www.raspberrypi.com/software/)
@@ -20,7 +20,7 @@
    * `sh examples/build-examples.sh`
 
 7. Run the demo on any short `.wav` you have:
-   * `./examples/build/Bin/ProcessFile models/speech-denoise-32ms.v1.0.rapidly <path-to-your-input.wav> output.wav`
+   * `./examples/build/Bin/ProcessFile models/speech-denoise-32ms.v1.1.rapidly <path-to-your-input.wav> output.wav`
 
 The processed `output.wav` will appear in the repo root. Without a Rapidly licence key (passed as an optional fourth argument), the output is intentionally watermarked.
 

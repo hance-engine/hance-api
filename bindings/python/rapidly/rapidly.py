@@ -76,7 +76,7 @@ class RapidlyEngine:
                 return np.empty((0, 0))
 
         def reset(self):
-            self.rapidly_engine.rapidlyResetProcessor()
+            self.rapidly_engine.rapidlyResetProcessorState(self.handle)
 
         def get_info(self):
             """
@@ -201,7 +201,7 @@ class RapidlyEngine:
         path_to_binary = self.find_binary()
         
         if not path_to_binary:
-            raise Exception("Could not find the Rapidly Engine binary.")
+            raise Exception("Could not find the Rapidly SDK binary.")
 
         self.rapidly_engine = ctypes.cdll.LoadLibrary(path_to_binary)
 

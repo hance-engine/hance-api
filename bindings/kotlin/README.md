@@ -8,7 +8,7 @@ In `app/build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("io.rapidly:rapidly-sdk:1.0")
+    implementation("io.rapidly:rapidly-sdk:1.1.0")
 }
 ```
 
@@ -17,7 +17,7 @@ as a downloadable artefact in the GitHub Release for `libs/`-based installs:
 
 ```kotlin
 dependencies {
-    implementation(files("libs/rapidly-sdk-1.0.aar"))
+    implementation(files("libs/rapidly-sdk-1.1.0.aar"))
 }
 ```
 

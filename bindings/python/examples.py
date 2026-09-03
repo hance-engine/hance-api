@@ -1,5 +1,5 @@
 """
-Examples on using the Rapidly engine.
+Examples on using the Rapidly SDK.
 """
 
 import os
@@ -77,8 +77,8 @@ def main():
     # Initialize RapidlyEngine and create processor
     rapidly_engine = rapidly.RapidlyEngine()
     # Here we might need to know the number of channels and sample rate
-    # Let's assume stereo and 44100 Hz
-    processor = rapidly_engine.create_processor(selected_model, 2, 44100)
+    # Let's assume stereo and 48000 Hz
+    processor = rapidly_engine.create_processor(selected_model, 2, 48000)
 
     # List available output buses
     num_buses = processor.get_number_of_output_buses()
@@ -87,8 +87,8 @@ def main():
         bus_names.append(processor.get_output_bus_name(i))
 
     # Determine output bus
-    if num_buses == 2 and 'Processed' in bus_names:
-        bus_num = bus_names.index("Processed")
+    if num_buses == 2 and 'Dialogue' in bus_names:
+        bus_num = bus_names.index("Dialogue")
     else:
         print("\nAvailable outputs:")
         

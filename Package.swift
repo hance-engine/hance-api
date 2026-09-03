@@ -29,8 +29,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "RapidlyEngineC",
-            url: "https://github.com/rapidly-labs/rapidly-sdk/releases/download/v1.0.1/RapidlyEngine.xcframework.zip",
-            checksum: "658f52f8c140cf52e2a8471dc1b407b37216454560e9ea0ec6e4da48153d4c76"
+            url: "https://github.com/rapidly-labs/rapidly-sdk/releases/download/v1.1.0/RapidlyEngine.xcframework.zip",
+            checksum: "7743a827a04ead2b489922328cebefc2f30198a6df214e365cd16268d99dd319"
         ),
         .target(
             name: "RapidlyEngine",

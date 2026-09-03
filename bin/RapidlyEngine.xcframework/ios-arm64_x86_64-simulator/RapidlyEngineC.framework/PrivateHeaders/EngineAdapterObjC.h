@@ -1,6 +1,6 @@
 /*
 
-This file is part of the Rapidly engine for cross-platform model inference.
+This file is part of the Rapidly SDK for cross-platform model inference.
 Copyright (c) 2026 Rapidly Labs AS.
 
 You are not allowed to use, distribute or modify this code without
@@ -36,7 +36,7 @@ __attribute__((visibility("default")))
 @interface EngineAdapterObjC : NSObject
 
 /**
- * Adds a license key to the Rapidly engine.
+ * Adds a license key to the Rapidly SDK.
  * Licence state is global, so this should be called BEFORE creating any processor.
  * Models loaded without a covering licence produce audibly degraded (watermarked) output.
  * @param licenseString                    A string containing a license received from Rapidly

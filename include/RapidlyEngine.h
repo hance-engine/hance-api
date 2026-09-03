@@ -1,6 +1,6 @@
 /*
 
-This file is part of the Rapidly engine for cross-platform model inference.
+This file is part of the Rapidly SDK for cross-platform model inference.
 Copyright (c) 2026 Rapidly Labs AS.
 
 You are not allowed to use, distribute or modify this code without
@@ -9,15 +9,26 @@ a written permission from Rapidly Labs AS.
 
 */
 
+/* Include guard. Named rather than `#pragma once` for the same reason
+   EngineAdapterObjC.h uses one: this header ships to customers, who vendor
+   it into their own trees, and a build that ends up with two copies of it on
+   the include path (a SwiftPM checkout plus a drag-and-dropped framework, a
+   Gradle prefab plus a manual copy) resolves them as two distinct files.
+   `#pragma once` keys on file identity and would let both be included; the
+   name below is the same in every copy, so the second inclusion is a no-op
+   whichever path it arrived by. */
+#ifndef RapidlyEngine_h
+#define RapidlyEngine_h
+
 /** \mainpage Rapidly API – C Interface
 * 
-* The C interface for the Rapidly Audio Engine provides developers with simple access to Rapidly's
+* The C interface for the Rapidly SDK provides developers with simple access to Rapidly's
 * powerful algorithms and processing capabilities from all languages that offer bindings for
-* standard C compatible libraries. The Rapidly Audio Engine is a light-weight and cross-platform
+* standard C compatible libraries. The Rapidly SDK is a light-weight and cross-platform
 * library, and it should be very easy to integrate it into your application. The library can
 * load pre-trained AI models and use these for audio processing to perform various tasks.
 *
-* The Rapidly Audio Engine is delivered with general purpose models for noise reduction,
+* The Rapidly SDK is delivered with general purpose models for noise reduction,
 * de-reverberation and stem separation. These are designed to meet common requirements
 * in terms of latency and CPU usage. However, we can train custom models for specific
 * customer requirements. Please [contact us](https://rapidly.io/contact) for more
@@ -82,7 +93,7 @@ a written permission from Rapidly Labs AS.
 *
 * \section Output Busses and Parameter Settings
 *
-* Rapidly engine models typically have two or more output busses that can be mixed together with
+* Rapidly SDK models typically have two or more output busses that can be mixed together with
 * adjustable gain and sensitivity settings. A typical noise or reverb reduction model will have
 * clean speech as one output and noise or reverb as the second output bus. Stem separation models
 * will have a separate output bus for each stem.
@@ -114,13 +125,13 @@ a written permission from Rapidly Labs AS.
 *
 * \section Performance Considerations
 *
-* The Rapidly Audio Engine is a light-weight and cross-platform library, and it can use the
+* The Rapidly SDK is a light-weight and cross-platform library, and it can use the
 * following libraries for vector arithmetic if available:
 * - Intel Performance Primitives
 * - Apple vDSP
 * - NEON Intrinsics
 * 
-* The Rapidly Audio Engine reverts to pure C++ when no compatible vector arithmetic library is available.
+* The Rapidly SDK reverts to pure C++ when no compatible vector arithmetic library is available.
 *
 * Copyright (c) 2026 Rapidly Labs AS.
 * 
@@ -181,11 +192,116 @@ extern "C"
 	} RapidlyProcessorInfo;
 
 	/**
-	 * Adds a license key to the Rapidly engine to remove audio watermarking on the output
-	 * @param licenseString					A string containing a license received from Rapidly
-	 * @return								True, if the license check succeeded, otherwise false.
+	 * Adds a license key to the Rapidly SDK to remove audio watermarking on the output.
+	 *
+	 * Accepts every Rapidly key type. Licence keys (lk_) are verified offline against the
+	 * embedded public key. Subscription keys (sk_) and activation keys (ak_) are validated
+	 * online in the background; processing is never blocked while validation runs, but the
+	 * output is watermarked until the engine is authorized.
+	 * @param licenseString					A string containing a key received from Rapidly
+	 * @return								True, if the key was accepted (for lk_ this means the offline
+	 *										check succeeded; for sk_/ak_ that the key shape is valid and
+	 *										online validation has started), otherwise false.
 	 */
 	RAPIDLY_API bool rapidlyAddLicense (const char* licenseString);
+
+	/**
+	 * This call is ignored because the SDK only ever talks to Rapidly's production API. It does so
+	 * only when a subscription key or activation key is in use, for licensing and billing. Licence
+	 * keys are fully offline. Audio never leaves the device.
+	 * @param baseUrl						Ignored.
+	 */
+	RAPIDLY_API void rapidlySetApiBaseUrl (const char* baseUrl);
+
+	/**
+	 * Token provider callback for client-side deployments. The integrator's backend holds the
+	 * subscription key and mints short-lived access tokens; the engine calls this function on a
+	 * background thread whenever it needs a fresh token. The returned string must stay valid
+	 * until the call returns (the engine copies it immediately). Return nullptr if no token
+	 * could be obtained — the engine treats that as offline.
+	 * @param forceRefresh					Non-zero when the engine requires a NEW token (e.g. the previous
+	 *										one was rejected); zero when a cached token is acceptable.
+	 * @param context						The opaque pointer passed to \ref rapidlySetTokenProvider.
+	 */
+	typedef const char* (*RapidlyTokenProviderFn) (int forceRefresh, void* context);
+
+	/**
+	 * Enables client mode: instead of holding a subscription key in the application, the engine
+	 * obtains short-lived access tokens through the provided callback. Mutually exclusive with
+	 * passing an sk_ key to \ref rapidlyAddLicense (whichever is registered last wins).
+	 * @param provider						The token provider callback, or nullptr to unregister.
+	 * @param context						Opaque pointer handed back to every provider invocation.
+	 */
+	RAPIDLY_API void rapidlySetTokenProvider (RapidlyTokenProviderFn provider, void* context);
+
+	/**
+	 * Starts a usage session for one end user. Subscription deployments only (sk_ key or token
+	 * provider); silently ignored otherwise. Processing works without an active session, but
+	 * subscription deployments should bracket each end-user processing run with
+	 * \ref rapidlyStartSession / \ref rapidlyStopSession so usage is attributed correctly.
+	 * @param externalUserId				An opaque identifier for the end user (never an email or name).
+	 * @return								True if the engine is currently authorized for processing.
+	 */
+	RAPIDLY_API bool rapidlyStartSession (const char* externalUserId);
+
+	/**
+	 * Ends the current usage session and reports its duration. Subscription deployments only;
+	 * silently ignored otherwise.
+	 */
+	RAPIDLY_API void rapidlyStopSession (void);
+
+	/**
+	 * Returns a stable identity string for this device or installation (for example a
+	 * concatenation of hardware identifiers, or any value that survives restarts). Only a
+	 * one-way hash of it ever leaves the device. Return nullptr to let the engine generate
+	 * an installation identifier and persist it through the storage callbacks instead.
+	 * Runs on a background thread; the returned string must stay valid until the call returns.
+	 * @param context						The opaque pointer passed to \ref rapidlySetActivationHooks.
+	 */
+	typedef const char* (*RapidlyFingerprintFn) (void* context);
+
+	/**
+	 * Returns the activation data this engine previously stored via RapidlyStorageWriteFn,
+	 * or nullptr when nothing is stored yet. Runs on a background thread; the returned
+	 * string must stay valid until the call returns.
+	 * @param context						The opaque pointer passed to \ref rapidlySetActivationHooks.
+	 */
+	typedef const char* (*RapidlyStorageReadFn) (void* context);
+
+	/**
+	 * Persists the engine's activation data (one string) somewhere that survives restarts —
+	 * a file, a registry value, a preferences store. Treat the contents as opaque.
+	 * Runs on a background thread.
+	 * @param data							Pointer to the zero terminated string to persist.
+	 * @param context						The opaque pointer passed to \ref rapidlySetActivationHooks.
+	 */
+	typedef void (*RapidlyStorageWriteFn) (const char* data, void* context);
+
+	/**
+	 * Registers the device hooks activation keys (ak_) need: a device identity source and a
+	 * persistent storage location for the activation data. Register BEFORE passing an ak_ key
+	 * to \ref rapidlyAddLicense. Activation requires internet on first run and at renewal;
+	 * between those moments the engine validates entirely offline using the stored data.
+	 * Without storage callbacks an ak_ key cannot activate and output stays watermarked.
+	 * @param fingerprintProvider			Device identity callback, or nullptr to use a generated installation id.
+	 * @param storageRead					Reads previously stored activation data.
+	 * @param storageWrite					Persists activation data.
+	 * @param context						Opaque pointer handed back to every callback invocation.
+	 */
+	RAPIDLY_API void rapidlySetActivationHooks (RapidlyFingerprintFn fingerprintProvider,
+	                                            RapidlyStorageReadFn storageRead,
+	                                            RapidlyStorageWriteFn storageWrite,
+	                                            void* context);
+
+	/**
+	 * Asks the engine to contact the activation service now instead of waiting for its next
+	 * scheduled background check. Useful when a normally-offline deployment briefly opens its
+	 * connection (for example to pick up a contract renewal): call this once the connection is
+	 * up and the engine refreshes its activation immediately. Non-blocking; the request runs
+	 * on a background thread and audio is never interrupted. Activation deployments only;
+	 * silently ignored otherwise.
+	 */
+	RAPIDLY_API void rapidlyRefreshActivation (void);
 
 	/**
 	 * Creates an audio processor, loads a model file and returns a handle to the processor instance if successful.
@@ -330,7 +446,12 @@ extern "C"
 #endif /* __cplusplus */
 
 /** \brief The maximum attenuation of the unwanted signal in dB. The
-	valid value range is <-inf, 0] */
+	valid value range is <-inf, 0]
+
+	On models with more than two output busses, this parameter adjusts
+	output bus index 1, which may not be the noise/residual bus -- for
+	example, it is "Reverb" on dialogue+reverb models. This behavior is
+	kept for compatibility. */
 #define RAPIDLY_PARAM_MAXATTENUATION			0x0001
 
 /** \brief The sensitivity of the processing in percent ranging from
@@ -360,3 +481,5 @@ extern "C"
 	 RAPIDLY_PARAM_BUS_SENSITIVITIES will be the first stem,
 	 RAPIDLY_PARAM_BUS_SENSITIVITIES + 1 the second, and so forth. */
 #define RAPIDLY_PARAM_BUS_SENSITIVITIES		0x0200
+
+#endif /* RapidlyEngine_h */

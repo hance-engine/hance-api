@@ -131,7 +131,7 @@ public class RapidlyEngine {
     }
     
     /**
-     Adds a license key to the Rapidly engine. Licence state is global, so this must be called
+     Adds a license key to the Rapidly SDK. Licence state is global, so this must be called
      BEFORE constructing any `RapidlyEngine` instance. Without a covering licence, the SDK
      operates in a watermarked demo mode that audibly degrades its output, and that state is
      baked into each processor at creation time -- a later licence call does not retroactively
